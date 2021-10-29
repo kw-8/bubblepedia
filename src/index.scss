@@ -14,7 +14,7 @@ header {
   .logo, .wiki-form {
     background: pink;
     position: absolute;
-    margin: 2%;
+    margin: 3%;
   }
 }
 
@@ -29,7 +29,7 @@ body { background-color: darksalmon;}
   
   .pictures, .article-section {
     background-color: antiquewhite;
-    width: 48%;
+    width: 46%;
   }
 
 }
@@ -38,7 +38,13 @@ body { background-color: darksalmon;}
 
 
 
-// all the reset stuff below
+/* ----------------------------
+
+  BEHOLD A BUNCH OF RESET STUFF
+
+---------------------------- */
+
+
 html, body, header, nav, h1, a,
 ul, li, strong, main, button, i,
 section, img, div, h2, p, form,
