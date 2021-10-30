@@ -1,72 +1,6 @@
 /*!*************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!./node_modules/sass-loader/dist/cjs.js!./src/index.scss ***!
   \*************************************************************************************************************************************/
-html {
-  background-image: "url(https://static01.nyt.com/images/2021/09/14/science/07CAT-STRIPES/07CAT-STRIPES-mediumSquareAt3X-v2.jpg)" no-repeat center center fixed;
-  background-size: cover;
-}
-
-header {
-  position: float;
-  justify-content: center;
-  height: 20vh;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  flex-wrap: wrap;
-  overflow: hidden;
-}
-header .logo {
-  left: 0;
-}
-header .wiki-form {
-  right: 0;
-  outline: none;
-}
-header .wiki-form:hover, header .wiki-form:focus-within {
-  outline: 1px solid lightgrey;
-}
-header .logo, header .wiki-form, header h1 {
-  background: pink;
-  position: absolute;
-  margin: 2.67%;
-  width: 16%;
-  overflow: hidden;
-  border-radius: 2px;
-}
-header h1 {
-  font-size: x-large;
-  width: 40%;
-  text-align: center;
-  max-height: fit-content;
-}
-header ul {
-  position: relative;
-  width: 16%;
-  margin-left: 78.67%;
-  margin-top: calc(10vh + 0.5em);
-  background: lavender;
-  opacity: 50%;
-}
-
-body {
-  background: deepskyblue;
-}
-
-.main {
-  background: powderblue;
-  height: 70vh;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: space-evenly;
-}
-.main .pictures, .main .article-section {
-  background-color: white;
-  width: 46%;
-  border-radius: 3%;
-}
-
 /* ----------------------------
 
   BEHOLD A BUNCH OF RESET STUFF
@@ -117,4 +51,86 @@ button {
 button,
 input[type=submit] {
   cursor: pointer;
+}
+
+/* ----------------------------
+
+  STYLING FOR BUBBLEPEDIA
+
+---------------------------- */
+html {
+  background-image: "url(https://static01.nyt.com/images/2021/09/14/science/07CAT-STRIPES/07CAT-STRIPES-mediumSquareAt3X-v2.jpg)" no-repeat center center fixed;
+  background-size: cover;
+}
+
+header {
+  position: float;
+  justify-content: center;
+  height: 20vh;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: wrap;
+  overflow: hidden;
+}
+header .logo {
+  left: 0;
+}
+header .wiki-form {
+  right: 0;
+  outline: none;
+}
+header .wiki-form:hover, header .wiki-form:focus-within {
+  outline: 1px solid lightgrey;
+}
+header .logo, header .wiki-form, header h1 {
+  background: pink;
+  position: absolute;
+  margin: 2.67%;
+  padding: 3px;
+  width: 16%;
+  overflow: hidden;
+  border-radius: 2px;
+}
+header h1 {
+  font-size: x-large;
+  width: 40%;
+  text-align: center;
+  max-height: fit-content;
+}
+header ul {
+  position: absolute;
+  top: 0;
+  margin-bottom: min 10%;
+  margin-left: calc(77.77% - 2px);
+  margin-top: calc(10vh + 0.75em);
+  border-radius: 2px;
+  width: calc(16% + 6px);
+  max-height: 80%;
+  background: honeydew;
+  overflow: hidden;
+}
+header ul button {
+  padding-left: 2px;
+  width: 98%;
+  border-bottom: 1px solid lavender;
+}
+
+body {
+  background: deepskyblue;
+}
+
+.main {
+  background: powderblue;
+  height: 70vh;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+.main .pictures, .main .article-section {
+  background-color: white;
+  width: 46%;
+  border-radius: 2%;
+  padding: 1%;
 }

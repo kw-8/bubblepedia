@@ -1,87 +1,8 @@
-html {
-  background-image: 'url(https://static01.nyt.com/images/2021/09/14/science/07CAT-STRIPES/07CAT-STRIPES-mediumSquareAt3X-v2.jpg)' no-repeat center center fixed;
-  background-size: cover;
-}
-
-header {
-  position: float;
-  justify-content: center;
-  height: 20vh;
-  
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  flex-wrap: wrap;
-  
-  overflow: hidden;
-  
-  
-  .logo { left: 0; } // only abs/rel blocks
-  .wiki-form {
-    right: 0;
-    outline: none;
-  }
-  .wiki-form:hover, .wiki-form:focus-within { outline: 1px solid lightgrey; }
-  
-  
-  .logo, .wiki-form, h1{
-    background: pink;
-    position: absolute;
-    margin: 2.67%;
-    width: 16%;
-    overflow: hidden;
-    border-radius: 2px;
-  }
-  
-  h1 {
-    font-size: x-large;
-    width: 40%;
-    text-align: center;
-    max-height: fit-content; // !!!!! not entirely sure, check
-  }
-  
-  ul {
-    position: relative;
-    width: 16%;
-    // height: fit-content;
-    margin-left: 78.67%;
-    margin-top: calc(10vh + .5em);
-    background: lavender;
-    opacity: 50%;
-    // li { position: absolute; }
-  }
-}
-
-body { background: deepskyblue;} //maybe background-image: url('img_girl.jpg') in html?
-.main {
-  background: powderblue;
-  height: 70vh;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: space-evenly;
-  
-  .pictures, .article-section {
-    background-color: white;
-    // opacity: .6; // want to put this with the background picture instead
-    // filter: blur(4px);
-    width: 46%;
-    border-radius: 3%;
-  }
-
-}
-
-
-
-
-
 /* ----------------------------
 
   BEHOLD A BUNCH OF RESET STUFF
 
 ---------------------------- */
-
-
 html, body, header, nav, h1, a,
 ul, li, strong, main, button, i,
 section, img, div, h2, p, form,
@@ -128,3 +49,102 @@ button,
 input[type="submit"] {
   cursor: pointer;
 }
+
+
+
+
+
+
+
+
+/* ----------------------------
+
+  STYLING FOR BUBBLEPEDIA
+
+---------------------------- */
+html {
+  background-image: 'url(https://static01.nyt.com/images/2021/09/14/science/07CAT-STRIPES/07CAT-STRIPES-mediumSquareAt3X-v2.jpg)' no-repeat center center fixed;
+  background-size: cover;
+}
+
+header {
+  position: float;
+  justify-content: center;
+  height: 20vh;
+  
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: wrap;
+  
+  overflow: hidden;
+  
+  
+  .logo { left: 0; } // only abs/rel blocks
+  .wiki-form {
+    right: 0;
+    outline: none;
+  }
+  .wiki-form:hover, .wiki-form:focus-within { outline: 1px solid lightgrey; }
+  
+  
+  .logo, .wiki-form, h1{
+    background: pink;
+    position: absolute;
+    margin: 2.67%;
+    padding: 3px;
+    width: 16%;
+    overflow: hidden;
+    border-radius: 2px;
+  }
+  
+  h1 {
+    font-size: x-large;
+    width: 40%;
+    text-align: center;
+    max-height: fit-content; // !!!!! not entirely sure, check
+  }
+  
+  ul {
+    position: absolute;
+    top: 0;
+    margin-bottom: min 10%;
+    margin-left: calc(77.77% - 2px);
+    margin-top: calc(10vh + .75em);
+    border-radius: 2px;
+    width: calc(16% + 6px);
+    max-height: 80%; 
+    background: honeydew;
+    overflow: hidden;
+    button {
+      padding-left: 2px;
+      width: 98%;
+      border-bottom: 1px solid lavender;
+    }
+    // :focus-visible { }
+  }
+}
+
+body { background: deepskyblue;} //maybe background-image: url('img_girl.jpg') in html?
+.main {
+  background: powderblue;
+  height: 70vh;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  
+  .pictures, .article-section {
+    background-color: white;
+    // opacity: .6; // want to put this with the background picture instead
+    // filter: blur(4px);
+    width: 46%;
+    border-radius: 2%;
+    padding: 1%;
+  }
+
+}
+
+
+
+
