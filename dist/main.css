@@ -14,18 +14,39 @@ header {
   flex-direction: row;
   align-items: center;
   flex-wrap: wrap;
+  overflow: hidden;
 }
 header .logo {
   left: 0;
 }
 header .wiki-form {
   right: 0;
+  outline: none;
 }
-header .logo, header .wiki-form {
+header .wiki-form:hover, header .wiki-form:focus-within {
+  outline: 1px solid lightgrey;
+}
+header .logo, header .wiki-form, header h1 {
   background: pink;
   position: absolute;
   margin: 2.67%;
   width: 16%;
+  overflow: hidden;
+  border-radius: 2px;
+}
+header h1 {
+  font-size: x-large;
+  width: 40%;
+  text-align: center;
+  max-height: fit-content;
+}
+header ul {
+  position: relative;
+  width: 16%;
+  margin-left: 78.67%;
+  margin-top: calc(10vh + 0.5em);
+  background: lavender;
+  opacity: 50%;
 }
 
 body {

@@ -1,2 +1,2 @@
 require('./scripts/article');
-require('./scripts/search')
+// require('./scripts/search')

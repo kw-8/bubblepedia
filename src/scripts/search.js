@@ -1,8 +1,7 @@
-document.addEventListener('DOMContentLoaded', addSubmitEventListener);
+document.addEventListener('DOMContentLoaded', addSubmitEventListener); //wait to load before listeners
 
 function addSubmitEventListener() {
   const searchForm = document.querySelector('.wiki-form');
-  console.log(searchForm);
   searchForm.addEventListener('submit', handleSubmit);
 }
 
@@ -13,7 +12,6 @@ async function handleSubmit(e) {
   e.preventDefault();
   // trim the search input from wiki pinput and save to searchTerm
   const searchTerm = document.querySelector('.wiki-input').value.trim();
-  console.log("searchTerm");
   try {
     const results = await searchWikipedia(searchTerm);
     console.log(results);
@@ -32,14 +30,26 @@ async function searchWikipedia(searchTerm) {
   }
   const json = await response.json();
   console.log(json);
-  displayResults(json);
+  setUpResults(json);
   return json;
 }
 
-async function displayResults(results) {
+async function setUpResults(results) {
+  const resultBox = document.querySelector('.search-results');
+
   results.query.search.forEach((entry) => {
-    // http://en.wikipedia.org/?curid=
-    // add to html
-    console.log(entry['title']) // do something with
+    let li = document.createElement("button");
+    //must use = b/c js not jquery
+    li.innerHTML = `${entry['title']}`;
+    li.setAttribute(  `value`,
+                      `http://en.wikipedia.org/?curid=${entry['pageid']}`);
+
+    console.log(resultBox);
+    resultBox.appendChild(li);
+    // add event handlers
   });
+  console.log(resultBox);
+  
 }
+
+function handleSubmitResult() { }
