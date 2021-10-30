@@ -1,5 +1,1 @@
-const wikiForm = document.querySelector('.wiki-form');
-wikiForm.addEventListener('submit', handleSubmit);
-function handleSubmit(event) {
-  event.preventDefault(); //prevent reload
-}
+let articleURL = 'https://en.wikipedia.org/wiki/Bubble_tea';

@@ -1,24 +1,30 @@
+html {
+  background-image: 'url(https://static01.nyt.com/images/2021/09/14/science/07CAT-STRIPES/07CAT-STRIPES-mediumSquareAt3X-v2.jpg)' no-repeat center center fixed;
+  background-size: cover;
+}
+
 header {
-  background: lightgoldenrodyellow;
-  position: relative;
+  position: float;
   justify-content: center;
   height: 20vh;
   
   display: flex;
   flex-direction: row;
   align-items: center;
-  
+  flex-wrap: wrap;
+
   .logo { left: 0; } // for absolute / relative blocks
   .wiki-form { right: 0; }
 
   .logo, .wiki-form {
     background: pink;
     position: absolute;
-    margin: 3%;
+    margin: 2.67%;
+    width: 16%;
   }
 }
 
-body { background-color: darksalmon;}
+body { background: deepskyblue;} //maybe background-image: url('img_girl.jpg') in html?
 .main {
   background: powderblue;
   height: 70vh;
@@ -28,8 +34,11 @@ body { background-color: darksalmon;}
   justify-content: space-evenly;
   
   .pictures, .article-section {
-    background-color: antiquewhite;
+    background-color: white;
+    // opacity: .6; // want to put this with the background picture instead
+    // filter: blur(4px);
     width: 46%;
+    border-radius: 3%;
   }
 
 }
