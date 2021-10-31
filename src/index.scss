@@ -63,34 +63,29 @@ input[type="submit"] {
 
 ---------------------------- */
 html {
-  background-image: 'url(https://static01.nyt.com/images/2021/09/14/science/07CAT-STRIPES/07CAT-STRIPES-mediumSquareAt3X-v2.jpg)' no-repeat center center fixed;
-  background-size: cover;
+  // background-image: 'url(https://static01.nyt.com/images/2021/09/14/science/07CAT-STRIPES/07CAT-STRIPES-mediumSquareAt3X-v2.jpg)' no-repeat center center fixed;
+  // background-size: cover;
+  background: lemonchiffon;
 }
 
 header {
   position: float;
-  justify-content: center;
-  height: 20vh;
+  height: 15vh;
   
   display: flex;
-  flex-direction: row;
   align-items: center;
-  flex-wrap: wrap;
+  justify-content: space-evenly;
   
-
-  overflow: hidden;
-  .logo {
-    left: 0; // only abs/rel blocks
-    p {overflow: visible;}
-  }
+  .logo { left: 0; }// only abs/rel blocks
   
   .logo, .wiki-form, h1{
     background: pink;
     position: absolute;
     margin: 2.67%;
+    margin-bottom: 0%;
+    margin-top: 0%;
     padding: 3px;
     width: 16%;
-    overflow: hidden;
     border-radius: 2px;
   }
   
@@ -98,6 +93,7 @@ header {
     right: 0;
     outline: none;
     background: whitesmoke;
+    input {width:100%;}
   }
   .wiki-form:hover, .wiki-form:focus-within { outline: 1px solid lightgrey; }
   
@@ -107,7 +103,7 @@ header {
     font-size: x-large;
     width: 40%;
     text-align: center;
-    max-height: fit-content; // !!!!! not entirely sure, check
+    // max-height: fit-content; // !!!!! not entirely sure, check
   }
   
   ul {
@@ -115,10 +111,10 @@ header {
     top: 0;
     margin-bottom: min 10%;
     margin-left: 78.2%;
-    margin-top: calc(10vh + .75em);
+    margin-top: calc(7vh + 1em);
     border-radius: 2px;
     width: calc(16% + 6px);
-    max-height: 80%; 
+    max-height: 70vh; 
     background: rgb(202, 236, 202);
     opacity: 90%;
     overflow: hidden;
@@ -131,14 +127,14 @@ header {
   }
 }
 
-body { background: deepskyblue;} //maybe background-image: url('img_girl.jpg') in html?
 .main {
-  background: powderblue;
-  height: 70vh;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-evenly;
+  background: powderblue;
+  height: 70vh;
+  padding: 4px;
   
   .pictures, .article-section {
     background-color: white;
@@ -146,10 +142,24 @@ body { background: deepskyblue;} //maybe background-image: url('img_girl.jpg') i
     // filter: blur(4px);
     width: 46%;
     border-radius: 2%;
-    padding: 1%;
+    padding: 3px;
     overflow-y: scroll;
   }
 
+}
+footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 2.67%;
+  margin-bottom: 0%;
+  max-height: 10vh;
+
+  * {
+    padding: 3px;
+    background: lavender;
+  }
+  p {width: 16%;}
 }
 
 

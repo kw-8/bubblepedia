@@ -9,30 +9,34 @@ require("./related_articles");
  *  ARTICLE DISPLAY FUNCTIONALITY
 *
 ---------------------------- */
-let articleName = "Bubble_tea";
-
-let articleURL = `http://en.wikipedia.org/w/api.php?action=parse&prop=text&page=${articleName}&format=json&origin=*`;
-
-let articleHTML = "";
-
+let articleName = "Bubble tea";
+let articleURL;
+let articleHTML;
+let articleSections;
 loadArticleContent(articleURL);
 
 async function loadArticleContent(articleURL) {
+
+  // set up articleURL and articleHTML
+  articleURL = `http://en.wikipedia.org/w/api.php?action=parse&prop=text&page=${articleName.split(' ').join('_')}&format=json&origin=*`;
+
   await fetch(articleURL)
     .then(response => response.json())
     .then(data => {
-      articleHTML = data.parse.text["*"];
+      articleHTML = data.parse.text["*"];//.replace(`\n`, '').replace('\', '')
       console.log('THIS IS THE ARTICLE', articleHTML);
     });
 
+
+  // find elements to put things in
   let pictureBox = document.querySelector('.pictures');
   let sectionBox = document.querySelector('.article-section');
+  let title = document.querySelector('h1');
+  title.innerHTML = articleName;
   console.log(pictureBox, sectionBox);
-  // let articleHTML = document.querySelector('')
-  // if (!articleContents) {
-  //   throw Error(articleContents.statusText);
-  // }
-  // console.log(articleContents);
+  
+  // put things into the elements
+  
 }
 
 
@@ -88,8 +92,7 @@ async function setUpResults(results) {
     let searchResult = document.createElement("button");
     //must use = b/c js not jquery
     searchResult.innerHTML = `${entry['title']}`;
-    searchResult.setAttribute(`page-title`,
-      entry['title'].split(' ').join('_'));
+    searchResult.setAttribute(`title`, entry['title']);
 
     resultBox.appendChild(searchResult);
     resultBox.appendChild(document.createElement("br"));
@@ -99,5 +102,6 @@ async function setUpResults(results) {
 
 async function handleSubmitResult(e) {
   e.preventDefault();
-  articleName = this['page-title'];
+  articleTitle = this['page-title'];
+  // sections = content.split('<h2>WILDCARD REGEX</h2>')      remove last 2: citations, external links
 }

@@ -59,39 +59,36 @@ input[type=submit] {
 
 ---------------------------- */
 html {
-  background-image: "url(https://static01.nyt.com/images/2021/09/14/science/07CAT-STRIPES/07CAT-STRIPES-mediumSquareAt3X-v2.jpg)" no-repeat center center fixed;
-  background-size: cover;
+  background: lemonchiffon;
 }
 
 header {
   position: float;
-  justify-content: center;
-  height: 20vh;
+  height: 15vh;
   display: flex;
-  flex-direction: row;
   align-items: center;
-  flex-wrap: wrap;
-  overflow: hidden;
+  justify-content: space-evenly;
 }
 header .logo {
   left: 0;
-}
-header .logo p {
-  overflow: visible;
 }
 header .logo, header .wiki-form, header h1 {
   background: pink;
   position: absolute;
   margin: 2.67%;
+  margin-bottom: 0%;
+  margin-top: 0%;
   padding: 3px;
   width: 16%;
-  overflow: hidden;
   border-radius: 2px;
 }
 header .wiki-form {
   right: 0;
   outline: none;
   background: whitesmoke;
+}
+header .wiki-form input {
+  width: 100%;
 }
 header .wiki-form:hover, header .wiki-form:focus-within {
   outline: 1px solid lightgrey;
@@ -100,17 +97,16 @@ header h1 {
   font-size: x-large;
   width: 40%;
   text-align: center;
-  max-height: fit-content;
 }
 header ul {
   position: absolute;
   top: 0;
   margin-bottom: min 10%;
   margin-left: 78.2%;
-  margin-top: calc(10vh + 0.75em);
+  margin-top: calc(7vh + 1em);
   border-radius: 2px;
   width: calc(16% + 6px);
-  max-height: 80%;
+  max-height: 70vh;
   background: #caecca;
   opacity: 90%;
   overflow: hidden;
@@ -121,24 +117,37 @@ header ul button {
   border-bottom: 1px solid honeydew;
 }
 
-body {
-  background: deepskyblue;
-}
-
 .main {
-  background: powderblue;
-  height: 70vh;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-evenly;
+  background: powderblue;
+  height: 70vh;
+  padding: 4px;
 }
 .main .pictures, .main .article-section {
   background-color: white;
   width: 46%;
   border-radius: 2%;
-  padding: 1%;
+  padding: 3px;
   overflow-y: scroll;
+}
+
+footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 2.67%;
+  margin-bottom: 0%;
+  max-height: 10vh;
+}
+footer * {
+  padding: 3px;
+  background: lavender;
+}
+footer p {
+  width: 16%;
 }
 
 /* ----------------------------
