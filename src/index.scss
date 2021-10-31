@@ -69,24 +69,25 @@ html {
 }
 
 header {
-  position: float;
   height: 12vh;
   
   display: flex;
+  flex-direction: row;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: space-between;
   
   .logo { left: 0; }// only abs/rel blocks
   
   .logo, .wiki-form, h1{
     background: pink;
-    position: absolute;
+    position: relative;
     margin: 2.67%;
     margin-bottom: 0%;
     margin-top: 0%;
     padding: 3px;
-    width: 16%;
+    width: calc(12vw + 50px);
     border-radius: 2px;
+    overflow-wrap:break-word;
   }
   
   .wiki-form {
@@ -110,10 +111,10 @@ header {
     position: absolute;
     top: 0;
     margin-bottom: min 10%;
-    margin-left: 78%;
-    margin-top: calc(5vh + 1em);
+    margin-left: calc(84.5vw - 45px);
+    margin-top: calc(2.67vh + 2em + 3px);
     border-radius: 2px;
-    width: calc(16% + 6px);
+    width: calc(12vw + 50px);
     max-height: 70vh; 
     background: rgb(202, 236, 202);
     opacity: 90%;
@@ -128,8 +129,7 @@ header {
 
 .main {
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+  flex-flow: row wrap;
   justify-content: space-evenly;
   background: powderblue;
   height: 70vh;
@@ -139,8 +139,10 @@ header {
     background-color: white;
     // opacity: .6; // want to put this with the background picture instead
     // filter: blur(4px);
-    width: 46%;
+    flex-grow: 1;
+    min-width: 180px;
     border-radius: 2%;
+    margin: 2.67%;
     padding: 3px;
     overflow-y: scroll;
   }
@@ -148,14 +150,16 @@ header {
 }
 footer {
   display: flex;
-  flex-direction: row;
+  flex-flow: row wrap;
   justify-content: space-between;
+  flex-grow: 1;
   margin: 2.67%;
   margin-bottom: 0%;
   height: 10vh;
-
+  
   * {
     padding: 3px;
+    min-width: 100px;
     background: lavender;
   }
   p {width: 16%;}
