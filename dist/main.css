@@ -66,56 +66,54 @@ header {
   height: 12vh;
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
-}
-header .logo {
-  left: 0;
 }
 header .logo, header .wiki-form, header h1 {
   background: pink;
   position: relative;
   margin: 2.67%;
   margin-bottom: 0%;
-  margin-top: 0%;
   padding: 3px;
   width: calc(12vw + 50px);
   border-radius: 2px;
   overflow-wrap: break-word;
 }
+header .logo {
+  left: 0;
+}
 header .wiki-form {
   right: 0;
-  outline: 1px solid whitesmoke;
+  padding: 0;
+  box-sizing: border-box;
+}
+header .wiki-form input, header .wiki-form ul {
+  padding: 3px;
+  width: 100%;
   background: white;
 }
 header .wiki-form input {
-  width: 100%;
+  outline: 1px solid lightgray;
+  border-radius: inherit;
 }
-header .wiki-form:hover, header .wiki-form:focus-within {
-  outline: 1px solid lightgrey;
+header .wiki-form input:hover, header .wiki-form input:focus-within {
+  outline: 1px solid lightslategray;
+}
+header .wiki-form ul {
+  padding-top: 0;
+  padding-bottom: 0;
+  border-radius: 2px;
+  opacity: 90%;
+  overflow: hidden;
+}
+header .wiki-form ul button {
+  width: 100%;
+  border-top: 1px solid lightgray;
 }
 header h1 {
   font-size: x-large;
   width: 40%;
   text-align: center;
-}
-header ul {
-  position: absolute;
-  top: 0;
-  margin-bottom: min 10%;
-  margin-left: calc(84.5vw - 45px);
-  margin-top: calc(2.67vh + 2em + 3px);
-  border-radius: 2px;
-  width: calc(12vw + 50px);
-  max-height: 70vh;
-  background: #caecca;
-  opacity: 90%;
-  overflow: hidden;
-}
-header ul button {
-  padding-left: 2px;
-  width: 98%;
-  border-bottom: 1px solid honeydew;
 }
 
 .main {

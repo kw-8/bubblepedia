@@ -73,32 +73,46 @@ header {
   
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
-  
-  .logo { left: 0; }// only abs/rel blocks
   
   .logo, .wiki-form, h1{
     background: pink;
     position: relative;
     margin: 2.67%;
     margin-bottom: 0%;
-    margin-top: 0%;
     padding: 3px;
     width: calc(12vw + 50px);
     border-radius: 2px;
     overflow-wrap:break-word;
   }
   
+  .logo { left: 0; }// only abs/rel blocks
+  
   .wiki-form {
-    right: 0;
-    outline: 1px solid whitesmoke;
-    background: white;
-    input {width:100%;}
+    right: 0; // position -> right
+    padding: 0;
+    box-sizing: border-box;
+    input, ul {
+      padding: 3px;
+      width: 100%;
+      background: white;
+    }
+
+    input {
+      outline: 1px solid lightgray;
+      border-radius: inherit;
+    }
+    input:hover, input:focus-within { outline: 1px solid lightslategray; }
+    ul {
+      padding-top: 0;
+      padding-bottom: 0;
+      border-radius: 2px;
+      opacity: 90%;
+      overflow: hidden;
+      button { width: 100%; border-top: 1px solid lightgray;}
+    }
   }
-  .wiki-form:hover, .wiki-form:focus-within { outline: 1px solid lightgrey; }
-  
-  
   
   h1 {
     font-size: x-large;
@@ -106,25 +120,7 @@ header {
     text-align: center;
     // max-height: fit-content; // !!!!! not entirely sure, check
   }
-  
-  ul {
-    position: absolute;
-    top: 0;
-    margin-bottom: min 10%;
-    margin-left: calc(84.5vw - 45px);
-    margin-top: calc(2.67vh + 2em + 3px);
-    border-radius: 2px;
-    width: calc(12vw + 50px);
-    max-height: 70vh; 
-    background: rgb(202, 236, 202);
-    opacity: 90%;
-    overflow: hidden;
-    button {
-      padding-left: 2px;
-      width: 98%;
-      border-bottom: 1px solid honeydew;
-    }
-  }
+
 }
 
 .main {

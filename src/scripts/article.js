@@ -23,7 +23,8 @@ async function loadArticleContent(articleURL) {
   await fetch(articleURL)
     .then(response => response.json())
     .then(data => {
-      articleHTML = data.parse.text["*"];//.replace(`\n`, '').replace('\', '')
+      let htmlAsText = data.parse.text["*"]; //saves text html from json obj
+      articleHTML = new DOMParser().parseFromString(htmlAsText, 'text/html'); //text -> parseable html
       console.log('THIS IS THE ARTICLE', articleHTML);
     });
 
@@ -35,6 +36,7 @@ async function loadArticleContent(articleURL) {
   title.innerHTML = articleName;
 
   // articleSections = articleHTML.split()
+
   
   // put things into the elements
   
@@ -98,6 +100,7 @@ async function setUpResults(results) {
     resultBox.appendChild(searchResult);
     resultBox.appendChild(document.createElement("br"));
   });
+  resultBox.setAttribute('visible', 'true');
   // console.log(resultBox);
 }
 
