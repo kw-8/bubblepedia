@@ -25,7 +25,10 @@ async function loadArticleContent(articleURL) {
     .then(data => {
       let htmlAsText = data.parse.text["*"]; //saves text html from json obj
       articleHTML = new DOMParser().parseFromString(htmlAsText, 'text/html'); //text -> parseable html
+      // articleHTML = data.parse.text['*'];
       console.log('THIS IS THE ARTICLE', articleHTML);
+      let sectionsNL = articleHTML.querySelectorAll('h2');
+
     });
 
 
@@ -36,7 +39,7 @@ async function loadArticleContent(articleURL) {
   title.innerHTML = articleName;
 
   // articleSections = articleHTML.split()
-
+  // console.log(articleHTML.querySelectorAll('h2, h2 + p'));
   
   // put things into the elements
   
