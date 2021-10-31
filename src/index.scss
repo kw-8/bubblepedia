@@ -70,7 +70,7 @@ html {
 
 header {
   position: float;
-  height: 15vh;
+  height: 12vh;
   
   display: flex;
   align-items: center;
@@ -91,8 +91,8 @@ header {
   
   .wiki-form {
     right: 0;
-    outline: none;
-    background: whitesmoke;
+    outline: 1px solid whitesmoke;
+    background: white;
     input {width:100%;}
   }
   .wiki-form:hover, .wiki-form:focus-within { outline: 1px solid lightgrey; }
@@ -110,8 +110,8 @@ header {
     position: absolute;
     top: 0;
     margin-bottom: min 10%;
-    margin-left: 78.2%;
-    margin-top: calc(7vh + 1em);
+    margin-left: 78%;
+    margin-top: calc(5vh + 1em);
     border-radius: 2px;
     width: calc(16% + 6px);
     max-height: 70vh; 
@@ -123,7 +123,6 @@ header {
       width: 98%;
       border-bottom: 1px solid honeydew;
     }
-    // :focus-visible { }
   }
 }
 
@@ -153,7 +152,7 @@ footer {
   justify-content: space-between;
   margin: 2.67%;
   margin-bottom: 0%;
-  max-height: 10vh;
+  height: 10vh;
 
   * {
     padding: 3px;
@@ -191,13 +190,13 @@ footer {
   background-color: rgba(0, 0, 0, 0.09);
 }
 /* The scrollbar 'thumb' ...that marque oval shape in a scrollbar */
-::-webkit-scrollbar-thumb:vertical {
+::-webkit-scrollbar-thumb {
   /* This is the EXACT color of Mac OS scrollbars. 
      Yes, I pulled out digital color meter */
   background: rgba(0,0,0,0.5);
   -webkit-border-radius: 100px;
 }
-::-webkit-scrollbar-thumb:vertical:active {
+::-webkit-scrollbar-thumb:active {
   background: rgba(0,0,0,0.61); /* Some darker color when you click it */
   -webkit-border-radius: 100px;
 }

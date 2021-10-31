@@ -33,7 +33,8 @@ async function loadArticleContent(articleURL) {
   let sectionBox = document.querySelector('.article-section');
   let title = document.querySelector('h1');
   title.innerHTML = articleName;
-  console.log(pictureBox, sectionBox);
+
+  // articleSections = articleHTML.split()
   
   // put things into the elements
   
