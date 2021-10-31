@@ -13,19 +13,26 @@ let articleName = "Bubble_tea";
 
 let articleURL = `http://en.wikipedia.org/w/api.php?action=parse&prop=text&page=${articleName}&format=json&origin=*`;
 
+let articleHTML = "";
+
 loadArticleContent(articleURL);
 
-function loadArticleContent(articleURL) {
-  // let articleContents =
-    fetch(articleURL)
-      .then(response => response.json)
-      .then(data => console.log(data));
+async function loadArticleContent(articleURL) {
+  await fetch(articleURL)
+    .then(response => response.json())
+    .then(data => {
+      articleHTML = data.parse.text["*"];
+      console.log('THIS IS THE ARTICLE', articleHTML);
+    });
+
+  let pictureBox = document.querySelector('.pictures');
+  let sectionBox = document.querySelector('.article-section');
+  console.log(pictureBox, sectionBox);
+  // let articleHTML = document.querySelector('')
   // if (!articleContents) {
   //   throw Error(articleContents.statusText);
   // }
   // console.log(articleContents);
-  // const json = articleContents.json();
-  // console.log(json);
 }
 
 
@@ -73,7 +80,7 @@ async function searchWikipedia(searchTerm) {
 
 async function setUpResults(results) {
   const resultBox = document.querySelector('.search-results');
-  resultBox.addEventListener('submit-result', handleSubmitResult);
+  resultBox.addEventListener('submit-result', handleSubmitResult.bind(this));
   
   while(resultBox.firstChild) {resultBox.removeChild(resultBox.firstChild)};
 
@@ -81,8 +88,8 @@ async function setUpResults(results) {
     let searchResult = document.createElement("button");
     //must use = b/c js not jquery
     searchResult.innerHTML = `${entry['title']}`;
-    searchResult.setAttribute(`value`,
-      `http://en.wikipedia.org/?curid=${entry['pageid']}`);
+    searchResult.setAttribute(`page-title`,
+      entry['title'].split(' ').join('_'));
 
     resultBox.appendChild(searchResult);
     resultBox.appendChild(document.createElement("br"));
@@ -92,5 +99,5 @@ async function setUpResults(results) {
 
 async function handleSubmitResult(e) {
   e.preventDefault();
-  // articleURL = ;
+  articleName = this['page-title'];
 }

@@ -77,16 +77,12 @@ header {
   align-items: center;
   flex-wrap: wrap;
   
+
   overflow: hidden;
-  
-  
-  .logo { left: 0; } // only abs/rel blocks
-  .wiki-form {
-    right: 0;
-    outline: none;
+  .logo {
+    left: 0; // only abs/rel blocks
+    p {overflow: visible;}
   }
-  .wiki-form:hover, .wiki-form:focus-within { outline: 1px solid lightgrey; }
-  
   
   .logo, .wiki-form, h1{
     background: pink;
@@ -97,6 +93,15 @@ header {
     overflow: hidden;
     border-radius: 2px;
   }
+  
+  .wiki-form {
+    right: 0;
+    outline: none;
+    background: whitesmoke;
+  }
+  .wiki-form:hover, .wiki-form:focus-within { outline: 1px solid lightgrey; }
+  
+  
   
   h1 {
     font-size: x-large;
@@ -109,17 +114,18 @@ header {
     position: absolute;
     top: 0;
     margin-bottom: min 10%;
-    margin-left: calc(77.77% - 2px);
+    margin-left: 78.2%;
     margin-top: calc(10vh + .75em);
     border-radius: 2px;
     width: calc(16% + 6px);
     max-height: 80%; 
-    background: honeydew;
+    background: rgb(202, 236, 202);
+    opacity: 90%;
     overflow: hidden;
     button {
       padding-left: 2px;
       width: 98%;
-      border-bottom: 1px solid lavender;
+      border-bottom: 1px solid honeydew;
     }
     // :focus-visible { }
   }
@@ -141,10 +147,49 @@ body { background: deepskyblue;} //maybe background-image: url('img_girl.jpg') i
     width: 46%;
     border-radius: 2%;
     padding: 1%;
+    overflow-y: scroll;
   }
 
 }
 
 
+
+/* ----------------------------
+
+  IMPORTING GOOGLE FONTS
+
+---------------------------- */
+
+// @import url(http://fonts.googleapis.com/css?family=Roboto+Slab|Open+Sans:400italic,700italic,400,700);
+
+// // Font Variables
+// $roboto-slab: 'Roboto Slab', serif;   
+// $open-sans: 'Open Sans', sans-serif;
+
+/* ----------------------------
+
+  STYLING FOR SCROLLBARS; WEBKIT COMPATIBLE
+
+---------------------------- */
+::-webkit-scrollbar {
+  width: 6px;
+  background-color: rgba(0,0,0,0);
+  -webkit-border-radius: 100px;
+}
+/* hover effect for both scrollbar area, and scrollbar 'thumb' */
+::-webkit-scrollbar:hover {
+  background-color: rgba(0, 0, 0, 0.09);
+}
+/* The scrollbar 'thumb' ...that marque oval shape in a scrollbar */
+::-webkit-scrollbar-thumb:vertical {
+  /* This is the EXACT color of Mac OS scrollbars. 
+     Yes, I pulled out digital color meter */
+  background: rgba(0,0,0,0.5);
+  -webkit-border-radius: 100px;
+}
+::-webkit-scrollbar-thumb:vertical:active {
+  background: rgba(0,0,0,0.61); /* Some darker color when you click it */
+  -webkit-border-radius: 100px;
+}
 
 

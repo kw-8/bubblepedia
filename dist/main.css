@@ -76,12 +76,8 @@ header {
 header .logo {
   left: 0;
 }
-header .wiki-form {
-  right: 0;
-  outline: none;
-}
-header .wiki-form:hover, header .wiki-form:focus-within {
-  outline: 1px solid lightgrey;
+header .logo p {
+  overflow: visible;
 }
 header .logo, header .wiki-form, header h1 {
   background: pink;
@@ -91,6 +87,14 @@ header .logo, header .wiki-form, header h1 {
   width: 16%;
   overflow: hidden;
   border-radius: 2px;
+}
+header .wiki-form {
+  right: 0;
+  outline: none;
+  background: whitesmoke;
+}
+header .wiki-form:hover, header .wiki-form:focus-within {
+  outline: 1px solid lightgrey;
 }
 header h1 {
   font-size: x-large;
@@ -102,18 +106,19 @@ header ul {
   position: absolute;
   top: 0;
   margin-bottom: min 10%;
-  margin-left: calc(77.77% - 2px);
+  margin-left: 78.2%;
   margin-top: calc(10vh + 0.75em);
   border-radius: 2px;
   width: calc(16% + 6px);
   max-height: 80%;
-  background: honeydew;
+  background: #caecca;
+  opacity: 90%;
   overflow: hidden;
 }
 header ul button {
   padding-left: 2px;
   width: 98%;
-  border-bottom: 1px solid lavender;
+  border-bottom: 1px solid honeydew;
 }
 
 body {
@@ -133,4 +138,40 @@ body {
   width: 46%;
   border-radius: 2%;
   padding: 1%;
+  overflow-y: scroll;
+}
+
+/* ----------------------------
+
+  IMPORTING GOOGLE FONTS
+
+---------------------------- */
+/* ----------------------------
+
+  STYLING FOR SCROLLBARS; WEBKIT COMPATIBLE
+
+---------------------------- */
+::-webkit-scrollbar {
+  width: 6px;
+  background-color: rgba(0, 0, 0, 0);
+  -webkit-border-radius: 100px;
+}
+
+/* hover effect for both scrollbar area, and scrollbar 'thumb' */
+::-webkit-scrollbar:hover {
+  background-color: rgba(0, 0, 0, 0.09);
+}
+
+/* The scrollbar 'thumb' ...that marque oval shape in a scrollbar */
+::-webkit-scrollbar-thumb:vertical {
+  /* This is the EXACT color of Mac OS scrollbars. 
+     Yes, I pulled out digital color meter */
+  background: rgba(0, 0, 0, 0.5);
+  -webkit-border-radius: 100px;
+}
+
+::-webkit-scrollbar-thumb:vertical:active {
+  background: rgba(0, 0, 0, 0.61);
+  /* Some darker color when you click it */
+  -webkit-border-radius: 100px;
 }
