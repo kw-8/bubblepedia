@@ -147,10 +147,10 @@ header h1 {
     overflow-y: scroll;
   }
 }
-.main .pictures {
+.main .pictures .pictures, .main .article-section .pictures {
   left: 0;
 }
-.main .article-section {
+.main .pictures .article-section, .main .article-section .article-section {
   right: 0;
 }
 

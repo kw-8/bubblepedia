@@ -13,6 +13,7 @@ let articleName = "Bubble tea";
 let articleURL;
 let articleHTML;
 let articleSections;
+let articleImages;
 loadArticleContent(articleURL);
 
 async function loadArticleContent(articleURL) {
@@ -44,6 +45,9 @@ async function setUpArticleSections(data) {
   articleHTML = new DOMParser().parseFromString(htmlAsText, 'text/html'); //text -> parseable html
 
   console.log('THIS IS THE ARTICLE', articleHTML);
+
+  articleImages = Array.from(articleHTML.querySelectorAll('img'));
+  console.log(articleImages.map(el=>el.alt));
 
   // retrieve sections we want to display
   let sections = Array.from(articleHTML.querySelectorAll('h2, h3, h4, p, ul'));

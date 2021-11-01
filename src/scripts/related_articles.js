@@ -1,4 +1,4 @@
-// to objects
-// function createArticleElements
+// add li elements to div! add eventlisteners!
+// function addArticleElements()
 
 // export
