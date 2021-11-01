@@ -141,7 +141,7 @@ header h1 {
     max-width: 46vw;
   }
 }
-@media screen and (min-height: 400px) {
+@media screen and (min-height: 500px) {
   .main .pictures, .main .article-section {
     height: 62vh;
     overflow-y: scroll;

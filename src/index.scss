@@ -143,12 +143,14 @@ header {
     margin: 1.6%;
     padding: 1.2%;
     @media screen and (min-width: 700px) {max-width: 46vw;}
-    @media screen and (min-height: 400px) {
+    @media screen and (min-height: 500px) {
       height: 62vh;
       overflow-y: scroll;
     }
     .pictures{left: 0;}
-    .article-section{right: 0;}
+    .article-section {
+      right: 0;
+    }
 
     // h2 {}
     // h3 {}

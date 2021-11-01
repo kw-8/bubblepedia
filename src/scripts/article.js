@@ -9,14 +9,15 @@ require("./related_articles");
  *  ARTICLE DISPLAY FUNCTIONALITY
 *
 ---------------------------- */
-let articleName = "Bubble tea";
-let articleURL;
-let articleHTML;
-let articleSections;
-let articleImages;
-loadArticleContent(articleURL);
+var articleName = "Bubble tea";
+var articleURL;
+var articleHTML;
+var articleSections;
+var articleImages;
+loadArticleContent();
 
-async function loadArticleContent(articleURL) {
+async function loadArticleContent() {
+  console.log('loading');
 
   // set up articleURL and articleHTML
   articleURL = `http://en.wikipedia.org/w/api.php?action=parse&prop=text&page=${articleName.split(' ').join('_')}&format=json&origin=*`;
@@ -73,8 +74,8 @@ async function setUpArticleSections(data) {
   });
 
   let textArea = document.querySelector('.article-section');
+  while (textArea.firstChild) { textArea.removeChild(textArea.firstChild) };
   articleSections[0].forEach(el => textArea.appendChild(el));
-  // console.log(articleSections[0]);
   console.log(articleSections);
 }
 
@@ -122,7 +123,7 @@ async function searchWikipedia(searchTerm) {
 
 async function setUpResults(results) {
   const resultBox = document.querySelector('.search-results');
-  resultBox.addEventListener('submit-result', handleSubmitResult.bind(this));
+  resultBox.addEventListener('click', handleClickResult.bind(this));
   
   while(resultBox.firstChild) {resultBox.removeChild(resultBox.firstChild)};
 
@@ -135,11 +136,13 @@ async function setUpResults(results) {
     resultBox.appendChild(searchResult);
     resultBox.appendChild(document.createElement("br"));
   });
-  resultBox.setAttribute('visible', 'true');
   // console.log(resultBox);
 }
 
-async function handleSubmitResult(e) {
+async function handleClickResult(e) {
   e.preventDefault();
-  articleTitle = this['page-title'];
+  // console.log(e.target.title);
+  articleName = e.target.title;
+  console.log(articleName);
+  loadArticleContent();
 }
