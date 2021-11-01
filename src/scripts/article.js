@@ -1,3 +1,5 @@
+const { async } = require("regenerator-runtime");
+
 require("./related_articles");
 
 
@@ -26,19 +28,33 @@ async function loadArticleContent() {
     .then(response => response.json())
     .then(data => {
       setUpArticleSections(data);
+      setUpImages(data);
     });
 
 
   // find elements to put things in
+  let htmlBox = document.querySelector('html');
   let pictureBox = document.querySelector('.pictures');
   let sectionBox = document.querySelector('.article-section');
   let title = document.querySelector('h1');
   title.innerHTML = articleName;
 
-  // articleSections = articleHTML.split()
-  // console.log(articleHTML.querySelectorAll('h2, h2 + p'));
-  
-  // put things into the elements
+  // add bg
+  // console.log(articleImages[0]['src']);
+  htmlBox.setAttribute('background-image', `url('${articleImages[0]['src']}')`);
+
+  // add content to article images
+  while (pictureBox.firstChild) { pictureBox.removeChild(pictureBox.firstChild) };
+  articleImages.forEach(el => pictureBox.appendChild(el));
+
+  // add content to sectionBox
+  while (sectionBox.firstChild) { sectionBox.removeChild(sectionBox.firstChild) };
+  articleSections[0].forEach(el => sectionBox.appendChild(el));
+}
+
+async function setUpImages(data) {
+  articleImages = Array.from(articleHTML.querySelectorAll('img'));
+  console.log(articleImages.map(el => el.alt));
 }
 
 async function setUpArticleSections(data) {
@@ -46,9 +62,6 @@ async function setUpArticleSections(data) {
   articleHTML = new DOMParser().parseFromString(htmlAsText, 'text/html'); //text -> parseable html
 
   console.log('THIS IS THE ARTICLE', articleHTML);
-
-  articleImages = Array.from(articleHTML.querySelectorAll('img'));
-  console.log(articleImages.map(el=>el.alt));
 
   // retrieve sections we want to display
   let sections = Array.from(articleHTML.querySelectorAll('h2, h3, h4, p, ul'));
@@ -72,11 +85,6 @@ async function setUpArticleSections(data) {
       articleSections.push(sections.slice(startIndex));
     }
   });
-
-  let textArea = document.querySelector('.article-section');
-  while (textArea.firstChild) { textArea.removeChild(textArea.firstChild) };
-  articleSections[0].forEach(el => textArea.appendChild(el));
-  console.log(articleSections);
 }
 
 
@@ -136,9 +144,16 @@ async function setUpResults(results) {
     resultBox.appendChild(searchResult);
     resultBox.appendChild(document.createElement("br"));
   });
-  // console.log(resultBox);
 }
 
+
+
+
+/* ----------------------------
+ *
+ *  HANDLE CLICKS, LOAD ARTICLE
+ *
+---------------------------- */
 async function handleClickResult(e) {
   e.preventDefault();
   // console.log(e.target.title);

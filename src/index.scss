@@ -63,9 +63,8 @@ input[type="submit"] {
 
 ---------------------------- */
 html {
-  // background-image: 'url(https://static01.nyt.com/images/2021/09/14/science/07CAT-STRIPES/07CAT-STRIPES-mediumSquareAt3X-v2.jpg)' no-repeat center center fixed;
-  // background-size: cover;
-  background: lemonchiffon;
+  background-image: no-repeat center fixed;
+  background-size: cover;
 }
 
 header {
@@ -127,7 +126,6 @@ header {
   display: flex;
   flex-flow: row wrap;
   justify-content: space-evenly;
-  background: powderblue;
   padding: 4px;
   @media screen and (max-height: 400px) {
     height: fit-content;
@@ -141,23 +139,23 @@ header {
     flex-grow: 1;
     border-radius: 6px;
     margin: 1.6%;
-    padding: 1.2%;
     @media screen and (min-width: 700px) {max-width: 46vw;}
     @media screen and (min-height: 500px) {
       height: 62vh;
       overflow-y: scroll;
     }
-    .pictures{left: 0;}
-    .article-section {
-      right: 0;
-    }
+  }
+  .pictures{left: 0;}
+  .article-section {
+    right: 0;
+    padding: 1.2%;
+  }
 
     // h2 {}
     // h3 {}
     // h4 {}
     // h5 {}
     // p, ul {}
-  }
 
 }
 footer {
@@ -196,23 +194,27 @@ footer {
   STYLING FOR SCROLLBARS; WEBKIT COMPATIBLE
 
 ---------------------------- */
+/* Hide scrollbar for Chrome, Safari and Opera */
 ::-webkit-scrollbar {
+  display: none;
+}
+.article-section::-webkit-scrollbar {
   width: 6px;
-  background-color: rgba(0,0,0,0);
+  background-color: transparent;
   -webkit-border-radius: 100px;
 }
 /* hover effect for both scrollbar area, and scrollbar 'thumb' */
-::-webkit-scrollbar:hover {
+.article-section::-webkit-scrollbar:hover {
   background-color: rgba(0, 0, 0, 0.09);
 }
 /* The scrollbar 'thumb' ...that marque oval shape in a scrollbar */
-::-webkit-scrollbar-thumb {
+.article-section::-webkit-scrollbar-thumb {
   /* This is the EXACT color of Mac OS scrollbars. 
      Yes, I pulled out digital color meter */
   background: rgba(0,0,0,0.5);
   -webkit-border-radius: 100px;
 }
-::-webkit-scrollbar-thumb:active {
+.article-section::-webkit-scrollbar-thumb:active {
   background: rgba(0,0,0,0.61); /* Some darker color when you click it */
   -webkit-border-radius: 100px;
 }
