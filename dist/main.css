@@ -58,9 +58,8 @@ input[type=submit] {
   STYLING FOR BUBBLEPEDIA
 
 ---------------------------- */
-html {
-  background-image: no-repeat center fixed;
-  background-size: cover;
+body {
+  background-image: url("../assets/bubble_tea_fun_glasses.jpg");
 }
 
 header {
@@ -152,6 +151,7 @@ header h1 {
 .main .article-section {
   right: 0;
   padding: 1.2%;
+  box-sizing: border-box;
 }
 
 footer {
@@ -170,6 +170,28 @@ footer * {
 }
 footer p {
   width: 16%;
+}
+
+.fade-bg, .frost {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  opacity: 0.4;
+}
+
+.fade-bg {
+  background: #2f414f;
+}
+
+.fade-bg[show=false] {
+  opacity: 0;
+}
+
+.frost {
+  background: whitesmoke;
+  z-index: -1;
 }
 
 /* ----------------------------

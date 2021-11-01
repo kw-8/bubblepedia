@@ -62,9 +62,8 @@ input[type="submit"] {
   STYLING FOR BUBBLEPEDIA
 
 ---------------------------- */
-html {
-  background-image: no-repeat center fixed;
-  background-size: cover;
+body {
+  background-image: url('../assets/bubble_tea_fun_glasses.jpg');
 }
 
 header {
@@ -149,6 +148,7 @@ header {
   .article-section {
     right: 0;
     padding: 1.2%;
+    box-sizing: border-box;
   }
 
     // h2 {}
@@ -174,6 +174,22 @@ footer {
   }
   p {width: 16%;}
 }
+.fade-bg, .frost {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  opacity: .4;
+}
+.fade-bg {
+  background: rgb(47, 65, 79);
+}
+.fade-bg[show="false"] {opacity: 0;}
+.frost {
+  background: whitesmoke;
+  z-index: -1;
+}
 
 
 
@@ -189,6 +205,11 @@ footer {
 // $roboto-slab: 'Roboto Slab', serif;   
 // $open-sans: 'Open Sans', sans-serif;
 
+
+
+
+
+
 /* ----------------------------
 
   STYLING FOR SCROLLBARS; WEBKIT COMPATIBLE
@@ -198,6 +219,7 @@ footer {
 ::-webkit-scrollbar {
   display: none;
 }
+
 .article-section::-webkit-scrollbar {
   width: 6px;
   background-color: transparent;

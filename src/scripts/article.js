@@ -33,15 +33,16 @@ async function loadArticleContent() {
 
 
   // find elements to put things in
-  let htmlBox = document.querySelector('html');
+  // let htmlBox = document.querySelector('body');
   let pictureBox = document.querySelector('.pictures');
   let sectionBox = document.querySelector('.article-section');
   let title = document.querySelector('h1');
   title.innerHTML = articleName;
 
-  // add bg
-  // console.log(articleImages[0]['src']);
-  htmlBox.setAttribute('background-image', `url('${articleImages[0]['src']}')`);
+  // // console.log(articleImages[0]['src']);
+  // console.log(articleImages[0]);
+  // htmlBox.setAttribute('background-image', `url(${articleImages[0]['src']})`);
+  // htmlBox.setAttribute('id', 'bg');
 
   // add content to article images
   while (pictureBox.firstChild) { pictureBox.removeChild(pictureBox.firstChild) };
