@@ -23,12 +23,7 @@ async function loadArticleContent(articleURL) {
   await fetch(articleURL)
     .then(response => response.json())
     .then(data => {
-      let htmlAsText = data.parse.text["*"]; //saves text html from json obj
-      articleHTML = new DOMParser().parseFromString(htmlAsText, 'text/html'); //text -> parseable html
-      // articleHTML = data.parse.text['*'];
-      console.log('THIS IS THE ARTICLE', articleHTML);
-      let sectionsNL = articleHTML.querySelectorAll('h2');
-
+      setUpArticleSections(data);
     });
 
 
@@ -42,9 +37,42 @@ async function loadArticleContent(articleURL) {
   // console.log(articleHTML.querySelectorAll('h2, h2 + p'));
   
   // put things into the elements
-  
 }
 
+async function setUpArticleSections(data) {
+  let htmlAsText = data.parse.text["*"]; //json obj -> text
+  articleHTML = new DOMParser().parseFromString(htmlAsText, 'text/html'); //text -> parseable html
+
+  console.log('THIS IS THE ARTICLE', articleHTML);
+
+  // retrieve sections we want to display
+  let sections = Array.from(articleHTML.querySelectorAll('h2, h3, h4, p, ul'));
+  let sectionStarts = [];
+  sections.forEach((el, i) => {
+    if (el.nodeName === "H2") sectionStarts.push(i)
+  }); // remove the extra below
+  sections.splice(sectionStarts[sectionStarts.length - 2]);
+  sections.splice(0, sectionStarts[1]);
+  sectionStarts = sectionStarts.slice(1, sectionStarts.length - 2).map(el => el - sectionStarts[1]);
+
+  // console.log('SECTION STARTING INDEXES', sectionStarts);
+  sections.forEach(el => console.log(el.textContent));
+
+  // set up articleSections
+  articleSections = [];
+  sectionStarts.map((startIndex, i) => {
+    if (i < sectionStarts.length-1) {
+      articleSections.push(sections.slice(startIndex, sectionStarts[i + 1]));
+    } else {
+      articleSections.push(sections.slice(startIndex));
+    }
+  });
+
+  let textArea = document.querySelector('.article-section');
+  articleSections[0].forEach(el => textArea.appendChild(el));
+  // console.log(articleSections[0]);
+  console.log(articleSections);
+}
 
 
 
@@ -110,5 +138,4 @@ async function setUpResults(results) {
 async function handleSubmitResult(e) {
   e.preventDefault();
   articleTitle = this['page-title'];
-  // sections = content.split('<h2>WILDCARD REGEX</h2>')      remove last 2: citations, external links
 }

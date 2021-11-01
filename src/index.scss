@@ -128,20 +128,28 @@ header {
   flex-flow: row wrap;
   justify-content: space-evenly;
   background: powderblue;
-  height: 70vh;
   padding: 4px;
+  @media screen and (max-height: 400px) {
+    height: fit-content;
+  }
   
   .pictures, .article-section {
     background-color: white;
     // opacity: .6; // want to put this with the background picture instead
     // filter: blur(4px);
+    min-width: 240px;
     flex-grow: 1;
-    min-width: 180px;
-    border-radius: 2%;
+    border-radius: 6px;
     margin: 1.6%;
     padding: 1.2%;
-    overflow-y: scroll;
+    @media screen and (min-width: 700px) {max-width: 46vw;}
+    @media screen and (min-height: 400px) {
+      height: 62vh;
+      overflow-y: scroll;
+    }
   }
+  .pictures{left: 0;}
+  .article-section{right: 0;}
 
 }
 footer {

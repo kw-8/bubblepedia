@@ -121,17 +121,37 @@ header h1 {
   flex-flow: row wrap;
   justify-content: space-evenly;
   background: powderblue;
-  height: 70vh;
   padding: 4px;
+}
+@media screen and (max-height: 400px) {
+  .main {
+    height: fit-content;
+  }
 }
 .main .pictures, .main .article-section {
   background-color: white;
+  min-width: 240px;
   flex-grow: 1;
-  min-width: 180px;
-  border-radius: 2%;
+  border-radius: 6px;
   margin: 1.6%;
   padding: 1.2%;
-  overflow-y: scroll;
+}
+@media screen and (min-width: 700px) {
+  .main .pictures, .main .article-section {
+    max-width: 46vw;
+  }
+}
+@media screen and (min-height: 400px) {
+  .main .pictures, .main .article-section {
+    height: 62vh;
+    overflow-y: scroll;
+  }
+}
+.main .pictures {
+  left: 0;
+}
+.main .article-section {
+  right: 0;
 }
 
 footer {
