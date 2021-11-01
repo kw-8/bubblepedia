@@ -186,7 +186,7 @@ footer p {
 }
 
 .fade-bg[show=false] {
-  opacity: 0;
+  visibility: hidden;
 }
 
 .frost {

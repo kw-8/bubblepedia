@@ -1,6 +1,6 @@
 const { async } = require("regenerator-runtime");
 
-require("./related_articles");
+// require("./related_articles");
 
 
 
@@ -91,6 +91,19 @@ async function setUpArticleSections(data) {
 
 
 
+
+
+
+
+
+/*  take in array containing arrays of doc nodes
+    add tabs to article container
+    add eventlisteners to tab div 'click'
+    */
+
+
+
+
 /* ----------------------------
  *
  *  SEARCH FUNCTIONALITY
@@ -132,6 +145,7 @@ async function searchWikipedia(searchTerm) {
 
 async function setUpResults(results) {
   const resultBox = document.querySelector('.search-results');
+  
   resultBox.addEventListener('click', handleClickResult.bind(this));
   
   while(resultBox.firstChild) {resultBox.removeChild(resultBox.firstChild)};
@@ -152,13 +166,39 @@ async function setUpResults(results) {
 
 /* ----------------------------
  *
- *  HANDLE CLICKS, LOAD ARTICLE
+ * RELATED ARTICLES
+ *
+---------------------------- */
+async function setUpRelated() {
+  const relatedUL = document.querySelector('.search-results');
+
+  resultBox.addEventListener('click', handleClickResult.bind(this));
+
+  while (resultBox.firstChild) { resultBox.removeChild(resultBox.firstChild) };
+
+  results.query.search.forEach((entry) => {
+    let searchResult = document.createElement("button");
+    //must use = b/c js not jquery
+    searchResult.innerHTML = `${entry['title']}`;
+    searchResult.setAttribute(`title`, entry['title']);
+
+    resultBox.appendChild(searchResult);
+    resultBox.appendChild(document.createElement("br"));
+  });
+}
+
+
+
+
+/* ----------------------------
+ *
+ * HANDLE CLICK -> LOAD ARTICLE
  *
 ---------------------------- */
 async function handleClickResult(e) {
   e.preventDefault();
   // console.log(e.target.title);
-  articleName = e.target.title;
+  articleName = e.target.value;
   console.log(articleName);
   loadArticleContent();
 }

@@ -185,7 +185,7 @@ footer {
 .fade-bg {
   background: rgb(47, 65, 79);
 }
-.fade-bg[show="false"] {opacity: 0;}
+.fade-bg[show="false"] {visibility: hidden;}
 .frost {
   background: whitesmoke;
   z-index: -1;
