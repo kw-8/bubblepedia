@@ -1,7 +1,10 @@
 const { async } = require("regenerator-runtime");
+import { addClearSearchListener, addClearRelatedListener, handleClearSearchClick, handleClearRelatedClick } from "./handlers"
 
 document.addEventListener('DOMContentLoaded', addSubmitEventListener); //wait to load before listeners
 document.addEventListener('DOMContentLoaded', addSeeAlsoListener);
+document.addEventListener('DOMContentLoaded', addClearSearchListener);
+document.addEventListener('DOMContentLoaded', addClearRelatedListener);
 
 
 
@@ -14,9 +17,9 @@ document.addEventListener('DOMContentLoaded', addSeeAlsoListener);
 ---------------------------- */
 async function handleClickResult(e) {
   e.preventDefault();
-  // console.log(e.target.title);
+  
   articleName = e.target.title;
-  console.log(articleName);
+  
   loadArticleContent();
 }
 
@@ -73,7 +76,7 @@ async function loadArticleContent() {
 }
 
 async function setUpImages(data) {
-  articleImages = Array.from(articleHTML.querySelectorAll('img'));
+  articleImages = Array.from(articleHTML.querySelectorAll('img')).filter((imgNode) => imgNode.width > 120 && imgNode.height > 120);
   console.log(articleImages.map(el => el.alt));
 }
 
@@ -186,22 +189,13 @@ async function addClickRelatedListener() {
   relatedUl.addEventListener('click', handleClickResult.bind(this));
 }
 
-// async function handleClickRelated(e) {
-//   e.preventDefault();
-
-//   articleName = e.target.title;
-
-//   let relatedUl = document.querySelector('.related-article-list');
-//   console.log('HELP',relatedUl);
-
-//   loadArticleContent;
-// }
-
 async function setUpRelated(e) {
   e.preventDefault();
 
   let relatedUl = document.querySelector('.related-article-list');
   relatedUl.addEventListener('click', handleClickResult.bind(this));
+
+  document.querySelector('.fade-bg').setAttribute('show', 'true');
 
   // array of nodes of li elements from see also
   let liArr = Array.from(articleSections[articleSections.length - 1][1].querySelectorAll('li'));

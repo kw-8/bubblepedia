@@ -170,7 +170,8 @@ footer * {
 footer p {
   width: 16%;
 }
-footer .related-article-list {
+
+.related-article-list {
   position: absolute;
   top: 20vh;
   left: 20vh;
@@ -180,7 +181,7 @@ footer .related-article-list {
   flex-flow: row wrap;
   background: transparent;
 }
-footer .related-article-list * {
+.related-article-list * {
   width: 10vw;
   height: 10vw;
   border-radius: 2vw;
@@ -199,7 +200,7 @@ footer .related-article-list * {
 }
 
 .fade-bg {
-  background: #2f414f;
+  background: #291200;
 }
 
 .fade-bg[show=false] {
