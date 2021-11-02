@@ -1,6 +1,24 @@
 const { async } = require("regenerator-runtime");
 
-// require("./related_articles");
+document.addEventListener('DOMContentLoaded', addSubmitEventListener); //wait to load before listeners
+document.addEventListener('DOMContentLoaded', addSeeAlsoListener);
+
+
+
+
+
+/* ----------------------------
+ *
+ * HANDLE CLICK -> LOAD ARTICLE
+ *
+---------------------------- */
+async function handleClickResult(e) {
+  e.preventDefault();
+  // console.log(e.target.title);
+  articleName = e.target.title;
+  console.log(articleName);
+  loadArticleContent();
+}
 
 
 
@@ -34,15 +52,16 @@ async function loadArticleContent() {
 
   // find elements to put things in
   // let htmlBox = document.querySelector('body');
+  let relatedBox = document.querySelector('.related-article-list');
   let pictureBox = document.querySelector('.pictures');
   let sectionBox = document.querySelector('.article-section');
   let title = document.querySelector('h1');
   title.innerHTML = articleName;
 
-  // // console.log(articleImages[0]['src']);
-  // console.log(articleImages[0]);
   // htmlBox.setAttribute('background-image', `url(${articleImages[0]['src']})`);
-  // htmlBox.setAttribute('id', 'bg');
+
+  // remove see also elements
+  while (relatedBox.firstChild) { relatedBox.removeChild(relatedBox.firstChild) };
 
   // add content to article images
   while (pictureBox.firstChild) { pictureBox.removeChild(pictureBox.firstChild) };
@@ -59,10 +78,11 @@ async function setUpImages(data) {
 }
 
 async function setUpArticleSections(data) {
+  console.log(data);
   let htmlAsText = data.parse.text["*"]; //json obj -> text
   articleHTML = new DOMParser().parseFromString(htmlAsText, 'text/html'); //text -> parseable html
 
-  console.log('THIS IS THE ARTICLE', articleHTML);
+  // console.log('THIS IS THE ARTICLE', articleHTML);
 
   // retrieve sections we want to display
   let sections = Array.from(articleHTML.querySelectorAll('h2, h3, h4, p, ul'));
@@ -75,7 +95,7 @@ async function setUpArticleSections(data) {
   sectionStarts = sectionStarts.slice(1, sectionStarts.length - 2).map(el => el - sectionStarts[1]);
 
   // console.log('SECTION STARTING INDEXES', sectionStarts);
-  sections.forEach(el => console.log(el.textContent));
+  // sections.forEach(el => console.log(el.textContent));
 
   // set up articleSections
   articleSections = [];
@@ -92,25 +112,11 @@ async function setUpArticleSections(data) {
 
 
 
-
-
-
-
-/*  take in array containing arrays of doc nodes
-    add tabs to article container
-    add eventlisteners to tab div 'click'
-    */
-
-
-
-
 /* ----------------------------
  *
  *  SEARCH FUNCTIONALITY
  *
 ---------------------------- */
-document.addEventListener('DOMContentLoaded', addSubmitEventListener); //wait to load before listeners
-
 function addSubmitEventListener() {
   const searchForm = document.querySelector('.wiki-form');
   searchForm.addEventListener('submit', handleSubmit);
@@ -138,7 +144,7 @@ async function searchWikipedia(searchTerm) {
     throw Error(response.statusText);
   }
   const json = await response.json();
-  console.log(json);
+  // console.log(json);
   setUpResults(json);
   return json;
 }
@@ -164,41 +170,79 @@ async function setUpResults(results) {
 
 
 
+
 /* ----------------------------
  *
  * RELATED ARTICLES
  *
 ---------------------------- */
-async function setUpRelated() {
-  const relatedUL = document.querySelector('.search-results');
+async function addSeeAlsoListener() {
+  let seeAlsoButton = document.querySelector('.related-articles > button');
+  seeAlsoButton.addEventListener('click', setUpRelated);
+}
 
-  resultBox.addEventListener('click', handleClickResult.bind(this));
+async function addClickRelatedListener() {
+  let relatedUl = document.querySelector('.related-article-list');
+  relatedUl.addEventListener('click', handleClickResult.bind(this));
+}
 
-  while (resultBox.firstChild) { resultBox.removeChild(resultBox.firstChild) };
+// async function handleClickRelated(e) {
+//   e.preventDefault();
 
-  results.query.search.forEach((entry) => {
-    let searchResult = document.createElement("button");
-    //must use = b/c js not jquery
-    searchResult.innerHTML = `${entry['title']}`;
-    searchResult.setAttribute(`title`, entry['title']);
+//   articleName = e.target.title;
 
-    resultBox.appendChild(searchResult);
-    resultBox.appendChild(document.createElement("br"));
+//   let relatedUl = document.querySelector('.related-article-list');
+//   console.log('HELP',relatedUl);
+
+//   loadArticleContent;
+// }
+
+async function setUpRelated(e) {
+  e.preventDefault();
+
+  let relatedUl = document.querySelector('.related-article-list');
+  relatedUl.addEventListener('click', handleClickResult.bind(this));
+
+  // array of nodes of li elements from see also
+  let liArr = Array.from(articleSections[articleSections.length - 1][1].querySelectorAll('li'));
+
+  liArr.forEach((li) => {
+    let el = document.createElement("li");
+    el.innerHTML = `${li.textContent}`;
+    el.setAttribute(`title`, li.textContent);
+
+    relatedUl.appendChild(el);
+    relatedUl.appendChild(document.createElement("br"));
   });
 }
 
 
 
 
-/* ----------------------------
- *
- * HANDLE CLICK -> LOAD ARTICLE
- *
----------------------------- */
-async function handleClickResult(e) {
-  e.preventDefault();
-  // console.log(e.target.title);
-  articleName = e.target.value;
-  console.log(articleName);
-  loadArticleContent();
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// {
+//   "batchcomplete": "",
+//   "query":  { "normalized": [{  "from": "Bubble_tea", "to": "Bubble tea" }],
+//               "pages":  { "4045": { "pageid": 4045,
+//                                     "ns": 0,
+//                                     "title": "Bubble tea",
+//                                     "thumbnail": { "source": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Bubble_Tea.png/267px-Bubble_Tea.png", "width": 267, "height": 500 },
+//                                     "pageimage": "Bubble_Tea.png" }
+//                         }
+//             }
+// }

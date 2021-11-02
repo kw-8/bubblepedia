@@ -70,7 +70,6 @@ header {
   justify-content: space-between;
 }
 header .logo, header .wiki-form, header h1 {
-  background: pink;
   position: relative;
   margin: 2.67%;
   margin-bottom: 0%;
@@ -171,6 +170,24 @@ footer * {
 footer p {
   width: 16%;
 }
+footer .related-article-list {
+  position: absolute;
+  top: 20vh;
+  left: 20vh;
+  width: 60vw;
+  box-sizing: border-box;
+  display: flex;
+  flex-flow: row wrap;
+  background: transparent;
+}
+footer .related-article-list * {
+  width: 10vw;
+  height: 10vw;
+  border-radius: 2vw;
+  background: wheat;
+  justify-content: center;
+  text-align: center;
+}
 
 .fade-bg, .frost {
   position: absolute;
@@ -178,7 +195,7 @@ footer p {
   left: 0;
   height: 100vh;
   width: 100vw;
-  opacity: 0.4;
+  opacity: 0.6;
 }
 
 .fade-bg {
