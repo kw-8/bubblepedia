@@ -67,7 +67,10 @@ body {
 }
 
 header {
-  height: 12vh;
+  height: fit-content;
+  
+  @media screen and (min-width: 700px) {margin-top: 3vh;
+  height: 12vh;}
   
   display: flex;
   flex-direction: row;
@@ -162,18 +165,38 @@ footer {
   display: flex;
   flex-flow: row wrap;
   justify-content: space-between;
-  flex-grow: 1;
   margin: 2.67%;
   margin-bottom: 0%;
   height: 10vh;
   
+  @media screen and (max-width: 700px) {
+    .related-articles, p {
+      display:inherit;
+      flex-flow: col nowrap;
+      * {
+        justify-content: space-between;
+        width: 100vw;
+      }
+    }
+  }
+  
   * {
     padding: 3px;
-    min-width: 100px;
-    background: lavender;
+    width: 30vw;
   }
-  p {width: 16%;}
-
+  .related-articles {
+    display: inherit;
+    justify-content: center;
+    button {
+      width:3em;
+      height:3em;
+      border-radius: 1em;
+      text-align: center;
+      background: white;
+      opacity: .8;
+    }
+  }
+  .related-articles + p {text-align: right;}
 }
 .related-article-list {
   position: absolute;
@@ -207,6 +230,9 @@ footer {
   height: 100vh;
   width: 100vw;
   opacity: .6;
+  @media screen and (max-width: 700px) {
+    height: 160vh;
+  }
 }
 .fade-bg {
   background: rgb(41, 18, 0);

@@ -63,11 +63,17 @@ body {
 }
 
 header {
-  height: 12vh;
+  height: fit-content;
   display: flex;
   flex-direction: row;
   align-items: flex-start;
   justify-content: space-between;
+}
+@media screen and (min-width: 700px) {
+  header {
+    margin-top: 3vh;
+    height: 12vh;
+  }
 }
 header .logo, header .wiki-form, header h1 {
   position: relative;
@@ -157,18 +163,38 @@ footer {
   display: flex;
   flex-flow: row wrap;
   justify-content: space-between;
-  flex-grow: 1;
   margin: 2.67%;
   margin-bottom: 0%;
   height: 10vh;
 }
+@media screen and (max-width: 700px) {
+  footer .related-articles, footer p {
+    display: inherit;
+    flex-flow: col nowrap;
+  }
+  footer .related-articles *, footer p * {
+    justify-content: space-between;
+    width: 100vw;
+  }
+}
 footer * {
   padding: 3px;
-  min-width: 100px;
-  background: lavender;
+  width: 30vw;
 }
-footer p {
-  width: 16%;
+footer .related-articles {
+  display: inherit;
+  justify-content: center;
+}
+footer .related-articles button {
+  width: 3em;
+  height: 3em;
+  border-radius: 1em;
+  text-align: center;
+  background: white;
+  opacity: 0.8;
+}
+footer .related-articles + p {
+  text-align: right;
 }
 
 .related-article-list {
@@ -197,6 +223,11 @@ footer p {
   height: 100vh;
   width: 100vw;
   opacity: 0.6;
+}
+@media screen and (max-width: 700px) {
+  .fade-bg, .frost {
+    height: 160vh;
+  }
 }
 
 .fade-bg {

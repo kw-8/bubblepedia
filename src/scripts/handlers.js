@@ -21,4 +21,9 @@ async function handleClearRelatedClick(e) {
   while (relatedBox.firstChild) { relatedBox.removeChild(relatedBox.firstChild); }
 }
 
+// async function handleSeeAlsoClick(e) {
+
+//   gsap.to('.related-article-list', { duration: 3, rotation: 360, });
+// }
+
 export {addClearSearchListener, addClearRelatedListener, handleClearSearchClick, handleClearRelatedClick};

@@ -1,5 +1,6 @@
 const { async } = require("regenerator-runtime");
-import { addClearSearchListener, addClearRelatedListener, handleClearSearchClick, handleClearRelatedClick } from "./handlers"
+import { addClearSearchListener, addClearRelatedListener, handleClearSearchClick, handleClearRelatedClick } from "./handlers";
+import {splashRelated} from "./animation";
 
 document.addEventListener('DOMContentLoaded', addSubmitEventListener); //wait to load before listeners
 document.addEventListener('DOMContentLoaded', addSeeAlsoListener);
@@ -205,7 +206,7 @@ async function addSeeAlsoListener() {
 
 async function addClickRelatedListener() {
   let relatedUl = document.querySelector('.related-article-list');
-  relatedUl.addEventListener('click', handleClickResult.bind(this));
+  relatedUl.addEventListener('click', handleClickResult.bind(relatedUl));
 }
 
 async function setUpRelated(e) {
@@ -232,35 +233,6 @@ async function setUpRelated(e) {
     }
   }
   if (articleRedirectLi) relatedUl.appendChild(articleRedirectLi);
+
+  splashRelated();
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// {
-//   "batchcomplete": "",
-//   "query":  { "normalized": [{  "from": "Bubble_tea", "to": "Bubble tea" }],
-//               "pages":  { "4045": { "pageid": 4045,
-//                                     "ns": 0,
-//                                     "title": "Bubble tea",
-//                                     "thumbnail": { "source": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Bubble_Tea.png/267px-Bubble_Tea.png", "width": 267, "height": 500 },
-//                                     "pageimage": "Bubble_Tea.png" }
-//                         }
-//             }
-// }
