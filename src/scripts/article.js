@@ -37,23 +37,21 @@ var articleURL;
 var articleHTML;
 var articleSections;
 var articleImages;
+var articleRedirectLi;
 loadArticleContent();
 
 async function loadArticleContent() {
-  console.log('loading');
-
+  
   // set up articleURL and articleHTML
   articleURL = `http://en.wikipedia.org/w/api.php?action=parse&prop=text&page=${articleName.split(' ').join('_')}&format=json&origin=*`;
 
+  console.log(`loading ${articleName}, ${articleURL}`);
+  
   await fetch(articleURL)
-    .then(response => {
-      console.log(response.parse);
-      return response.json()
-    })
+    .then(response => response.json())
     .then(data => {
       setUpArticleSections(data);
-      setUpImages(data);
-    });
+    })
 
 
   // find elements to put things in
@@ -72,16 +70,19 @@ async function loadArticleContent() {
 
   // add content to article images
   while (pictureBox.firstChild) { pictureBox.removeChild(pictureBox.firstChild) };
-  if (articleImages != []) {
+  if (articleImages.length > 0) {
     articleImages.forEach(el => pictureBox.appendChild(el));
   } else {
-    pictureBox.appendChild( document.createElement('img')
-      .setAttribute('src', './assets/chikadee.jpg'))
-    }
+    pictureBox.innerHTML = "<img src='./assets/chikadee.jpg'>";
+  }
 
   // add content to sectionBox
   while (sectionBox.firstChild) { sectionBox.removeChild(sectionBox.firstChild) };
-  articleSections[0].forEach(el => sectionBox.appendChild(el));
+  if (articleSections.length > 0) {
+    articleSections[0].forEach(el => sectionBox.appendChild(el));
+  } else {
+    // sectionBox.innerHTML = "This page is redirected, check 'see also' for new page";
+  }
 }
 
 async function setUpImages(data) {
@@ -89,11 +90,22 @@ async function setUpImages(data) {
 }
 
 async function setUpArticleSections(data) {
-  console.log(data);
   let htmlAsText = data.parse.text["*"]; //json obj -> text
-  articleHTML = new DOMParser().parseFromString(htmlAsText, 'text/html'); //text -> parseable html
 
-  // console.log('THIS IS THE ARTICLE', articleHTML);
+  if (htmlAsText.includes('Redirect to:')) {
+    let newTitle = htmlAsText.match(/title\=\".+\"/)[0];
+    newTitle = newTitle.slice(7, newTitle.length - 1);
+
+    console.log('new title match\n', newTitle);
+    articleRedirectLi = document.createElement('li');
+    articleRedirectLi.setAttribute('title', newTitle);
+    articleRedirectLi.textContent = newTitle;
+    console.log(articleRedirectLi);
+  }
+
+  
+  
+  articleHTML = new DOMParser().parseFromString(htmlAsText, 'text/html'); //text -> parseable html
 
   // retrieve sections we want to display
   let sections = Array.from(articleHTML.querySelectorAll('h2, h3, h4, p, ul'));
@@ -114,6 +126,8 @@ async function setUpArticleSections(data) {
       articleSections.push(sections.slice(startIndex));
     }
   });
+
+  setUpImages(data);
 }
 
 
@@ -203,16 +217,21 @@ async function setUpRelated(e) {
   document.querySelector('.fade-bg').setAttribute('show', 'true');
 
   // array of nodes of li elements from see also
-  let liArr = Array.from(articleSections[articleSections.length - 1][1].querySelectorAll('li'));
+  if (articleSections.length > 0) {
+    let rel = articleSections[articleSections.length - 1][1];
+    if (rel) {
+      let liArr = Array.from(rel.querySelectorAll('li')).filter(el => !el.textContent.includes('portal'));
+      liArr.forEach((li) => {
+        let el = document.createElement("li");
+        el.innerHTML = `${li.textContent}`;
+        el.setAttribute(`title`, li.textContent);
 
-  liArr.forEach((li) => {
-    let el = document.createElement("li");
-    el.innerHTML = `${li.textContent}`;
-    el.setAttribute(`title`, li.textContent);
-
-    relatedUl.appendChild(el);
-    relatedUl.appendChild(document.createElement("br"));
-  });
+        relatedUl.appendChild(el);
+        relatedUl.appendChild(document.createElement("br"));
+      });
+    }
+  }
+  if (articleRedirectLi) relatedUl.appendChild(articleRedirectLi);
 }
 
 
