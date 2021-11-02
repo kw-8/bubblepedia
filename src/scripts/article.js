@@ -46,7 +46,10 @@ async function loadArticleContent() {
   articleURL = `http://en.wikipedia.org/w/api.php?action=parse&prop=text&page=${articleName.split(' ').join('_')}&format=json&origin=*`;
 
   await fetch(articleURL)
-    .then(response => response.json())
+    .then(response => {
+      console.log(response.parse);
+      return response.json()
+    })
     .then(data => {
       setUpArticleSections(data);
       setUpImages(data);
@@ -65,10 +68,16 @@ async function loadArticleContent() {
 
   // remove see also elements
   while (relatedBox.firstChild) { relatedBox.removeChild(relatedBox.firstChild) };
+  document.querySelector('.fade-bg').setAttribute('show', 'false');
 
   // add content to article images
   while (pictureBox.firstChild) { pictureBox.removeChild(pictureBox.firstChild) };
-  articleImages.forEach(el => pictureBox.appendChild(el));
+  if (articleImages != []) {
+    articleImages.forEach(el => pictureBox.appendChild(el));
+  } else {
+    pictureBox.appendChild( document.createElement('img')
+      .setAttribute('src', './assets/chikadee.jpg'))
+    }
 
   // add content to sectionBox
   while (sectionBox.firstChild) { sectionBox.removeChild(sectionBox.firstChild) };
@@ -77,7 +86,6 @@ async function loadArticleContent() {
 
 async function setUpImages(data) {
   articleImages = Array.from(articleHTML.querySelectorAll('img')).filter((imgNode) => imgNode.width > 120 && imgNode.height > 120);
-  console.log(articleImages.map(el => el.alt));
 }
 
 async function setUpArticleSections(data) {
@@ -96,9 +104,6 @@ async function setUpArticleSections(data) {
   sections.splice(sectionStarts[sectionStarts.length - 2]);
   sections.splice(0, sectionStarts[1]);
   sectionStarts = sectionStarts.slice(1, sectionStarts.length - 2).map(el => el - sectionStarts[1]);
-
-  // console.log('SECTION STARTING INDEXES', sectionStarts);
-  // sections.forEach(el => console.log(el.textContent));
 
   // set up articleSections
   articleSections = [];
@@ -142,7 +147,7 @@ async function handleSubmit(e) {
 async function searchWikipedia(searchTerm) {
   //format: json, origin: no cors restriction, srlimit: max 20 results
   const searchURL = `https://en.wikipedia.org/w/api.php?action=query&list=search&prop=info&inprop=url&utf8=&format=json&origin=*&srlimit=12&srsearch=${searchTerm}`;
-  const response = await fetch(searchURL);
+  const response = await fetch(searchURL)
   if (!response) {
     throw Error(response.statusText);
   }

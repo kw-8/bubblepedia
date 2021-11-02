@@ -3,7 +3,7 @@ async function addClearSearchListener() {
   html.addEventListener('click', handleClearSearchClick);
 }
 async function addClearRelatedListener() {
-  const relatedBox = document.querySelector('.related-article-list');
+  const relatedBox = document.querySelector('.fade-bg');
   relatedBox.addEventListener('click', handleClearRelatedClick);
 }
 
@@ -14,6 +14,9 @@ async function handleClearSearchClick(e) {
 }
 async function handleClearRelatedClick(e) {
   e.preventDefault();
+  
+  document.querySelector('.fade-bg').setAttribute('show', 'false');
+
   let relatedBox = document.querySelector('.related-article-list');
   while (relatedBox.firstChild) { relatedBox.removeChild(relatedBox.firstChild); }
 }
