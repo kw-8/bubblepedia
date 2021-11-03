@@ -68,7 +68,7 @@ header, footer {
 
 header {
   height: fit-content;
-  margin-top: 0vh;
+  margin-top: 1vh;
   display: flex;
   flex-direction: row;
   align-items: flex-start;
@@ -76,7 +76,7 @@ header {
 }
 @media screen and (min-width: 700px) {
   header {
-    margin-top: 3vh;
+    margin-top: 5vh;
     height: 8vh;
   }
 }
@@ -249,20 +249,32 @@ footer img {
   top: 5vh;
   left: 5vh;
   width: 90vw;
+  filter: url("#goo");
   display: flex;
   flex-flow: row wrap;
   background: transparent;
 }
 .related-article-list * {
-  width: 10vw;
-  height: 10vw;
-  border-radius: 2vw;
+  position: absolute;
+  top: calc(30vh + 3em);
+  left: calc(50% - 1em);
+  width: 6em;
+  height: 6em;
+  border-radius: 3em;
+  padding: 0.6em;
+  border: 0.3em solid wheat;
   background: wheat;
-  display: inherit;
-  align-content: center;
-  text-align: center;
-  padding: 0.4em;
   box-sizing: border-box;
+  text-align: center;
+  overflow: hidden;
+}
+@media screen and (max-width: 700px) {
+  .related-article-list * {
+    left: calc(50vw - 3.6em);
+    width: 4em;
+    height: 4em;
+    border: 0.2em;
+  }
 }
 
 .readme {
@@ -301,7 +313,7 @@ footer img {
 }
 @media screen and (max-width: 700px) {
   .fade-bg, .frost {
-    height: 160vh;
+    height: 170vh;
   }
 }
 
@@ -352,4 +364,9 @@ body::-webkit-scrollbar {
   background: rgba(0, 0, 0, 0.61);
   /* Some darker color when you click it */
   -webkit-border-radius: 100px;
+}
+
+svg {
+  width: 0;
+  height: 0;
 }
