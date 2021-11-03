@@ -214,7 +214,33 @@ async function addClickRelatedListener() {
 
 async function setUpRelated(e) {
   e.preventDefault();
+  
+  // let relatedUl = document.querySelector('.related-article-list');
+  // relatedUl.addEventListener('click', handleClickResult.bind(this));
+  
+  // document.querySelector('.fade-bg').setAttribute('show', 'true');
 
+  // // array of nodes of li elements from see also
+  // if (articleSections.length > 0) {
+  //   let rel = articleSections[articleSections.length - 1][1];
+  //   if (rel) {
+  //     let liArr = Array.from(rel.querySelectorAll('li')).filter(el => !el.textContent.includes('portal'));
+  //     liArr.forEach((li) => {
+  //       let el = document.createElement("li");
+  //       el.innerHTML = `${li.textContent}`;
+  //       el.setAttribute(`title`, li.textContent);
+
+  //       relatedUl.appendChild(el);
+  //       relatedUl.appendChild(document.createElement("br"));
+  //     });
+  //   }
+  // } else { relatedUl.appendChild(articleRedirectLi);}
+  await addToSeeAlso();
+  
+  splashRelated();
+}
+
+async function addToSeeAlso() {
   let relatedUl = document.querySelector('.related-article-list');
   relatedUl.addEventListener('click', handleClickResult.bind(this));
 
@@ -234,7 +260,5 @@ async function setUpRelated(e) {
         relatedUl.appendChild(document.createElement("br"));
       });
     }
-  } else { relatedUl.appendChild(articleRedirectLi);}
-  
-  splashRelated();
+  } else { relatedUl.appendChild(articleRedirectLi); }
 }
