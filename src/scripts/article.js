@@ -67,6 +67,7 @@ async function loadArticleContent() {
 
   // remove see also elements
   while (relatedBox.firstChild) { relatedBox.removeChild(relatedBox.firstChild) };
+  console.log(relatedBox);
   document.querySelector('.fade-bg').setAttribute('show', 'false');
 
   // add content to article images
@@ -109,7 +110,7 @@ async function setUpArticleSections(data) {
   articleHTML = new DOMParser().parseFromString(htmlAsText, 'text/html'); //text -> parseable html
 
   // retrieve sections we want to display
-  let sections = Array.from(articleHTML.querySelectorAll('h2, h3, h4, p, ul'));
+  let sections = Array.from(articleHTML.querySelectorAll('h2, h3, h4, h5, p, ul'));
   let sectionStarts = [];
   sections.forEach((el, i) => {
     if (el.nodeName === "H2") sectionStarts.push(i)
@@ -231,8 +232,7 @@ async function setUpRelated(e) {
         relatedUl.appendChild(document.createElement("br"));
       });
     }
-  }
-  if (articleRedirectLi) relatedUl.appendChild(articleRedirectLi);
+  } else { relatedUl.appendChild(articleRedirectLi);}
 
   splashRelated();
 }

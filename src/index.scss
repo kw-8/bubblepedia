@@ -62,9 +62,19 @@ input[type="submit"] {
   STYLING FOR BUBBLEPEDIA
 
 ---------------------------- */
+// font-family: 'Comfortaa', cursive;
+// font-family: 'Noto Sans', sans-serif;
+// font-family: 'Noto Sans JP', sans-serif;
+// font-family: 'Noto Sans SC', sans-serif;
+// font-family: 'Noto Serif JP', serif;
+// font-family: 'Noto Serif SC', serif;
+// font-family: 'Playfair Display', serif;
 body {
   background-image: url('../assets/bubble_tea_fun_glasses.jpg');
+  // font: ;
 }
+
+header, footer, .related-article-list { font-family: 'Noto Sans', 'Noto Sans JP', 'Noto Sans SC'; }
 
 header {
   height: fit-content;
@@ -88,7 +98,10 @@ header {
     overflow-wrap:break-word;
   }
   
-  .logo { left: 0; }// only abs/rel blocks
+  .logo {
+    left: 0; // only abs/rel blocks
+    font-family: 'Comfortaa';
+  }
   
   .wiki-form {
     right: 0; // position -> right
@@ -116,10 +129,11 @@ header {
   }
   
   h1 {
+    font-family: 'Playfair Display', 'Noto Serif JP', 'Noto Serif SC';
     font-size: x-large;
+    font-weight: 600;
     width: 40%;
     text-align: center;
-    // max-height: fit-content; // !!!!! not entirely sure, check
   }
 
 }
@@ -135,8 +149,6 @@ header {
   
   .pictures, .article-section {
     background-color: white;
-    // opacity: .6; // want to put this with the background picture instead
-    // filter: blur(4px);
     min-width: 240px;
     flex-grow: 1;
     border-radius: 6px;
@@ -154,13 +166,17 @@ header {
     box-sizing: border-box;
   }
 
-    // h2 {}
-    // h3 {}
-    // h4 {}
-    // h5 {}
-    // p, ul {}
+    h2, h3, h4, h5 {
+      font-family: 'Playfair Display', 'Noto Serif JP', 'Noto Serif SC';
+      line-height: 2em;
+    }
+    p, ul {
+      line-height: 1.6em;
+      sup { vertical-align: top; font-size: 0.6em; };
+    }
 
 }
+
 footer {
   display: flex;
   flex-flow: row wrap;
@@ -169,20 +185,15 @@ footer {
   margin-bottom: 0%;
   height: 10vh;
   
-  @media screen and (max-width: 700px) {
-    .related-articles, p {
-      display:inherit;
-      flex-flow: col nowrap;
-      * {
-        justify-content: space-between;
-        width: 100vw;
-      }
-    }
-  }
+  a {width: fit-content;}
   
   * {
-    padding: 3px;
-    width: 30vw;
+    padding: 6px;
+    flex-flow: row nowrap;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    width: 25vw;
   }
   .related-articles {
     display: inherit;
@@ -190,14 +201,28 @@ footer {
     button {
       width:3em;
       height:3em;
-      border-radius: 1em;
+      border-radius: 1.6em;
       text-align: center;
       background: white;
       opacity: .8;
     }
   }
-  .related-articles + p {text-align: right;}
+  .related-articles + p {justify-content: right;}
+  
+  img {height: 2em; width: auto;}
+  
+  @media screen and (max-width: 700px) {
+    footer .related-articles, footer p {
+      display:inherit;
+      * {
+        flex-flow: column nowrap;
+        justify-content: space-between;
+      }
+    }
+    .related-articles + p {margin-left: calc(20vw + 50px);}
+  }
 }
+
 .related-article-list {
   position: absolute;
   top: 20vh;
@@ -231,7 +256,7 @@ footer {
   width: 100vw;
   opacity: .6;
   @media screen and (max-width: 700px) {
-    height: 160vh;
+    height: 170vh;
   }
 }
 .fade-bg {
@@ -242,20 +267,6 @@ footer {
   background: whitesmoke;
   z-index: -1;
 }
-
-
-
-/* ----------------------------
-
-  IMPORTING GOOGLE FONTS
-
----------------------------- */
-
-// @import url(http://fonts.googleapis.com/css?family=Roboto+Slab|Open+Sans:400italic,700italic,400,700);
-
-// // Font Variables
-// $roboto-slab: 'Roboto Slab', serif;   
-// $open-sans: 'Open Sans', sans-serif;
 
 
 

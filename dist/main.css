@@ -62,6 +62,10 @@ body {
   background-image: url("../assets/bubble_tea_fun_glasses.jpg");
 }
 
+header, footer, .related-article-list {
+  font-family: "Noto Sans", "Noto Sans JP", "Noto Sans SC";
+}
+
 header {
   height: fit-content;
   display: flex;
@@ -86,6 +90,7 @@ header .logo, header .wiki-form, header h1 {
 }
 header .logo {
   left: 0;
+  font-family: "Comfortaa";
 }
 header .wiki-form {
   right: 0;
@@ -116,7 +121,9 @@ header .wiki-form ul button {
   border-top: 1px solid lightgray;
 }
 header h1 {
+  font-family: "Playfair Display", "Noto Serif JP", "Noto Serif SC";
   font-size: x-large;
+  font-weight: 600;
   width: 40%;
   text-align: center;
 }
@@ -158,6 +165,17 @@ header h1 {
   padding: 1.2%;
   box-sizing: border-box;
 }
+.main h2, .main h3, .main h4, .main h5 {
+  font-family: "Playfair Display", "Noto Serif JP", "Noto Serif SC";
+  line-height: 2em;
+}
+.main p, .main ul {
+  line-height: 1.6em;
+}
+.main p sup, .main ul sup {
+  vertical-align: top;
+  font-size: 0.6em;
+}
 
 footer {
   display: flex;
@@ -167,19 +185,16 @@ footer {
   margin-bottom: 0%;
   height: 10vh;
 }
-@media screen and (max-width: 700px) {
-  footer .related-articles, footer p {
-    display: inherit;
-    flex-flow: col nowrap;
-  }
-  footer .related-articles *, footer p * {
-    justify-content: space-between;
-    width: 100vw;
-  }
+footer a {
+  width: fit-content;
 }
 footer * {
-  padding: 3px;
-  width: 30vw;
+  padding: 6px;
+  flex-flow: row nowrap;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  width: 25vw;
 }
 footer .related-articles {
   display: inherit;
@@ -188,13 +203,29 @@ footer .related-articles {
 footer .related-articles button {
   width: 3em;
   height: 3em;
-  border-radius: 1em;
+  border-radius: 1.6em;
   text-align: center;
   background: white;
   opacity: 0.8;
 }
 footer .related-articles + p {
-  text-align: right;
+  justify-content: right;
+}
+footer img {
+  height: 2em;
+  width: auto;
+}
+@media screen and (max-width: 700px) {
+  footer footer .related-articles, footer footer p {
+    display: inherit;
+  }
+  footer footer .related-articles *, footer footer p * {
+    flex-flow: column nowrap;
+    justify-content: space-between;
+  }
+  footer .related-articles + p {
+    margin-left: calc(20vw + 50px);
+  }
 }
 
 .related-article-list {
@@ -226,7 +257,7 @@ footer .related-articles + p {
 }
 @media screen and (max-width: 700px) {
   .fade-bg, .frost {
-    height: 160vh;
+    height: 170vh;
   }
 }
 
@@ -243,11 +274,6 @@ footer .related-articles + p {
   z-index: -1;
 }
 
-/* ----------------------------
-
-  IMPORTING GOOGLE FONTS
-
----------------------------- */
 /* ----------------------------
 
   STYLING FOR SCROLLBARS; WEBKIT COMPATIBLE
