@@ -74,13 +74,16 @@ body {
   // font: ;
 }
 
-header, footer, .related-article-list { font-family: 'Noto Sans', 'Noto Sans JP', 'Noto Sans SC'; }
+header, footer { font-family: 'Noto Sans', 'Noto Sans JP', 'Noto Sans SC'; }
 
 header {
   height: fit-content;
+  margin-top: 0vh;
   
-  @media screen and (min-width: 700px) {margin-top: 3vh;
-  height: 12vh;}
+  @media screen and (min-width: 700px) {
+    margin-top: 3vh;
+    height: 8vh;
+  }
   
   display: flex;
   flex-direction: row;
@@ -88,9 +91,9 @@ header {
   justify-content: space-between;
   
   .logo, .wiki-form, h1{
-    // background: pink;
     position: relative;
-    margin: 2.67%;
+    margin-left: 2.67vw;
+    margin-right: 2.67vw;
     margin-bottom: 0%;
     padding: 3px;
     width: calc(12vw + 50px);
@@ -99,11 +102,13 @@ header {
   }
   
   .logo {
+    margin-top: .5em;
     left: 0; // only abs/rel blocks
     font-family: 'Comfortaa';
   }
   
   .wiki-form {
+    margin-top: .5em;
     right: 0; // position -> right
     padding: 0;
     box-sizing: border-box;
@@ -162,15 +167,19 @@ header {
   .pictures{left: 0;}
   .article-section {
     right: 0;
-    padding: 1.2%;
+    padding: .8%;
+    padding-right: 0.5%;
+    padding-left: 2%;
     box-sizing: border-box;
   }
 
     h2, h3, h4, h5 {
       font-family: 'Playfair Display', 'Noto Serif JP', 'Noto Serif SC';
-      line-height: 2em;
+      font-size:larger;
+      line-height: 1.8em;
     }
     p, ul {
+      font-family: 'Noto Sans';
       line-height: 1.6em;
       sup { vertical-align: top; font-size: 0.6em; };
     }
@@ -182,7 +191,8 @@ footer {
   flex-flow: row wrap;
   justify-content: space-between;
   margin: 2.67%;
-  margin-bottom: 0%;
+  margin-bottom: 0;
+  margin-top: 2vh;
   height: 10vh;
   
   a {width: fit-content;}
@@ -207,7 +217,16 @@ footer {
       opacity: .8;
     }
   }
-  .related-articles + p {justify-content: right;}
+  .related-articles + p  {
+    justify-content: right;
+    button {
+      width: fit-content;
+      border-radius: 1em;
+      padding: .6em;
+      background: white;
+      opacity: .8;
+    }
+  }
   
   img {height: 2em; width: auto;}
   
@@ -224,11 +243,10 @@ footer {
 }
 
 .related-article-list {
-  position: absolute;
-  top: 20vh;
-  left: 20vh;
-  width: 60vw;
-  box-sizing: border-box;
+  position: sticky;
+  top: 5vh;
+  left: 5vh;
+  width: 90vw;
   
   display: flex;
   flex-flow: row wrap;
@@ -238,8 +256,33 @@ footer {
     height: 10vw;
     border-radius: 2vw;
     background: wheat;
+    display: inherit;
+    align-content: center;
+    text-align: center;
+    padding: .4em;
+    box-sizing: border-box;
+  }
+}
+.readme{
+  position: sticky;
+  margin-left: 20vw;
+  top: 10vh;
+  p {
+    width: 60vw;
+    height: 80vh;
+    border-radius: 2vw;
+    background: wheat;
     justify-content: center;
     text-align: center;
+    overflow-y: scroll;
+    box-sizing: border-box;
+    padding: 2em;
+  }
+
+  @media screen and (max-width: 700px) {
+    margin-left: 10vw;
+    top: 10vh;
+    p { width: 80vw; height: 80vh; }
   }
 }
 
@@ -254,17 +297,16 @@ footer {
   left: 0;
   height: 100vh;
   width: 100vw;
-  opacity: .6;
   @media screen and (max-width: 700px) {
-    height: 170vh;
+    height: 160vh;
   }
 }
 .fade-bg {
-  background: rgb(41, 18, 0);
+  background: rgb(41, 18, 0, .6);
 }
 .fade-bg[show="false"] {visibility: hidden;}
 .frost {
-  background: whitesmoke;
+  background: rgb(245, 245, 245, .6);
   z-index: -1;
 }
 
@@ -279,27 +321,28 @@ footer {
 
 ---------------------------- */
 /* Hide scrollbar for Chrome, Safari and Opera */
-::-webkit-scrollbar {
+.pictures::-webkit-scrollbar,
+body::-webkit-scrollbar {
   display: none;
 }
 
-.article-section::-webkit-scrollbar {
+::-webkit-scrollbar {
   width: 6px;
   background-color: transparent;
   -webkit-border-radius: 100px;
 }
 /* hover effect for both scrollbar area, and scrollbar 'thumb' */
-.article-section::-webkit-scrollbar:hover {
+::-webkit-scrollbar:hover {
   background-color: rgba(0, 0, 0, 0.09);
 }
 /* The scrollbar 'thumb' ...that marque oval shape in a scrollbar */
-.article-section::-webkit-scrollbar-thumb {
+::-webkit-scrollbar-thumb {
   /* This is the EXACT color of Mac OS scrollbars. 
      Yes, I pulled out digital color meter */
   background: rgba(0,0,0,0.5);
   -webkit-border-radius: 100px;
 }
-.article-section::-webkit-scrollbar-thumb:active {
+::-webkit-scrollbar-thumb:active {
   background: rgba(0,0,0,0.61); /* Some darker color when you click it */
   -webkit-border-radius: 100px;
 }

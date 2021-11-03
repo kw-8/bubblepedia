@@ -1,11 +1,12 @@
 const { async } = require("regenerator-runtime");
-import { addClearSearchListener, addClearRelatedListener, handleClearSearchClick, handleClearRelatedClick } from "./handlers";
+import { addClearSearchListener, addClearRelatedListener, addReadMeListener, handleClearSearchClick, handleClearRelatedClick, handleAddReadMeClick } from "./handlers";
 import {splashRelated} from "./animation";
 
 document.addEventListener('DOMContentLoaded', addSubmitEventListener); //wait to load before listeners
 document.addEventListener('DOMContentLoaded', addSeeAlsoListener);
 document.addEventListener('DOMContentLoaded', addClearSearchListener);
 document.addEventListener('DOMContentLoaded', addClearRelatedListener);
+document.addEventListener('DOMContentLoaded', addReadMeListener);
 
 
 
@@ -81,9 +82,10 @@ async function loadArticleContent() {
   // add content to sectionBox
   while (sectionBox.firstChild) { sectionBox.removeChild(sectionBox.firstChild) };
   if (articleSections.length > 0) {
-    articleSections[0].forEach(el => sectionBox.appendChild(el));
+    articleSections.forEach(arr =>
+      arr.forEach(el => sectionBox.appendChild(el)))
   } else {
-    // sectionBox.innerHTML = "This page is redirected, check 'see also' for new page";
+    sectionBox.innerHTML = "<p>This page is redirected, check 'see also' for new page</p>";
   }
 }
 
@@ -201,7 +203,7 @@ async function setUpResults(results) {
  *
 ---------------------------- */
 async function addSeeAlsoListener() {
-  let seeAlsoButton = document.querySelector('.related-articles > button');
+  let seeAlsoButton = document.querySelector('.seealso-button');
   seeAlsoButton.addEventListener('click', setUpRelated);
 }
 
@@ -233,6 +235,6 @@ async function setUpRelated(e) {
       });
     }
   } else { relatedUl.appendChild(articleRedirectLi);}
-
+  
   splashRelated();
 }
