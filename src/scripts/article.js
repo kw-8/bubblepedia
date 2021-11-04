@@ -104,10 +104,7 @@ async function setUpArticleSections(data) {
     articleRedirectLi = document.createElement('li');
     articleRedirectLi.setAttribute('title', newTitle);
     articleRedirectLi.textContent = newTitle;
-    console.log(articleRedirectLi);
   }
-
-  
   
   articleHTML = new DOMParser().parseFromString(htmlAsText, 'text/html'); //text -> parseable html
 
@@ -117,13 +114,24 @@ async function setUpArticleSections(data) {
   sections.forEach((el, i) => {
     if (el.nodeName === "H2") sectionStarts.push(i)
   }); // remove the extra below
-  sections.splice(sectionStarts[sectionStarts.length - 2]);
+  
+  let indexExtra = sections.findIndex((node) => {
+    if (node.firstChild) {
+      if (
+        [ 'Books', 'Notes', 'References', 'Bibliography', 'Further_reading',
+        'Additional_reading', 'External_links', 'Articles'].includes(node.firstChild.id)
+      ) return true;
+    }
+  })
+  // console.log('indexExtra', indexExtra, sections[indexExtra]);
+  
+  sections.splice(indexExtra);
   sections.splice(0, sectionStarts[1]);
   sectionStarts = sectionStarts.slice(1, sectionStarts.length - 2).map(el => el - sectionStarts[1]);
 
   // set up articleSections
   articleSections = [];
-  sectionStarts.map((startIndex, i) => {
+  sectionStarts.slice(0, sectionStarts.length-1).map((startIndex, i) => {
     if (i < sectionStarts.length-1) {
       articleSections.push(sections.slice(startIndex, sectionStarts[i + 1]));
     } else {
@@ -170,7 +178,6 @@ async function searchWikipedia(searchTerm) {
     throw Error(response.statusText);
   }
   const json = await response.json();
-  // console.log(json);
   setUpResults(json);
   return json;
 }
@@ -184,8 +191,7 @@ async function setUpResults(results) {
 
   results.query.search.forEach((entry) => {
     let searchResult = document.createElement("button");
-    //must use = b/c js not jquery
-    searchResult.innerHTML = `${entry['title']}`;
+    searchResult.innerHTML = `${entry['title']}`; //must use = b/c js not jquery
     searchResult.setAttribute(`title`, entry['title']);
 
     resultBox.appendChild(searchResult);
@@ -215,28 +221,8 @@ async function addClickRelatedListener() {
 async function setUpRelated(e) {
   e.preventDefault();
   
-  // let relatedUl = document.querySelector('.related-article-list');
-  // relatedUl.addEventListener('click', handleClickResult.bind(this));
-  
-  // document.querySelector('.fade-bg').setAttribute('show', 'true');
-
-  // // array of nodes of li elements from see also
-  // if (articleSections.length > 0) {
-  //   let rel = articleSections[articleSections.length - 1][1];
-  //   if (rel) {
-  //     let liArr = Array.from(rel.querySelectorAll('li')).filter(el => !el.textContent.includes('portal'));
-  //     liArr.forEach((li) => {
-  //       let el = document.createElement("li");
-  //       el.innerHTML = `${li.textContent}`;
-  //       el.setAttribute(`title`, li.textContent);
-
-  //       relatedUl.appendChild(el);
-  //       relatedUl.appendChild(document.createElement("br"));
-  //     });
-  //   }
-  // } else { relatedUl.appendChild(articleRedirectLi);}
   await addToSeeAlso();
-  
+
   splashRelated();
 }
 
@@ -248,9 +234,9 @@ async function addToSeeAlso() {
 
   // array of nodes of li elements from see also
   if (articleSections.length > 0) {
-    let rel = articleSections[articleSections.length - 1][1];
-    if (rel) {
-      let liArr = Array.from(rel.querySelectorAll('li')).filter(el => !el.textContent.includes('portal'));
+    let rel = articleSections[articleSections.length - 1];
+    if (rel[0].textContent = "See also") {
+      let liArr = Array.from(rel[1].querySelectorAll('li')).filter(el => !el.textContent.includes('portal'));
       liArr.forEach((li) => {
         let el = document.createElement("li");
         el.innerHTML = `${li.textContent}`;
