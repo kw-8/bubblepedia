@@ -279,11 +279,11 @@ footer {
 }
 .readme{
   position: sticky;
-  margin-left: 20vw;
-  top: 10vh;
-  p {
-    width: 60vw;
-    height: 80vh;
+  margin-left: calc(50vw - 15em);
+  top: calc(50vh - 7.5em);
+  > p {
+    width: 30em;
+    height: 15em;
     border-radius: 2vw;
     background: wheat;
     justify-content: center;
@@ -291,6 +291,7 @@ footer {
     overflow-y: scroll;
     box-sizing: border-box;
     padding: 2em;
+    li {text-align: left;}
   }
 
   @media screen and (max-width: 700px) {

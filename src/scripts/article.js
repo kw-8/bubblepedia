@@ -43,7 +43,6 @@ var articleRedirectLi;
 loadArticleContent();
 
 async function loadArticleContent() {
-  
   // set up articleURL and articleHTML
   articleURL = `http://en.wikipedia.org/w/api.php?action=parse&prop=text&page=${articleName.split(' ').join('_')}&format=json&origin=*`;
 
@@ -82,7 +81,7 @@ async function loadArticleContent() {
   // add content to sectionBox
   while (sectionBox.firstChild) { sectionBox.removeChild(sectionBox.firstChild) };
   if (articleSections.length > 0) {
-    articleSections.forEach(arr =>
+    articleSections.slice(0,articleSections.length-1).forEach(arr =>
       arr.forEach(el => sectionBox.appendChild(el)))
   } else {
     sectionBox.innerHTML = "<p>This page is redirected, check 'see also' for new page</p>";
@@ -95,8 +94,8 @@ async function setUpImages(data) {
 
 async function setUpArticleSections(data) {
   let htmlAsText = data.parse.text["*"]; //json obj -> text
-
-  if (htmlAsText.includes('Redirect to:')) {
+  // console.log(htmlAsText, htmlAsText.includes("Redirect to:"));
+  if (htmlAsText.includes("Redirect to:")) {
     let newTitle = htmlAsText.match(/title\=\".+\"/)[0];
     newTitle = newTitle.slice(7, newTitle.length - 1);
 
@@ -109,36 +108,40 @@ async function setUpArticleSections(data) {
   articleHTML = new DOMParser().parseFromString(htmlAsText, 'text/html'); //text -> parseable html
 
   // retrieve sections we want to display
-  let sections = Array.from(articleHTML.querySelectorAll('h2, h3, h4, h5, p, ul'));
+  let sections = Array.from(articleHTML.querySelectorAll('h2, h3, h4, h5, p, h2 + ul, h3 + ul, h4 + ul'));
   let sectionStarts = [];
   sections.forEach((el, i) => {
     if (el.nodeName === "H2") sectionStarts.push(i)
   }); // remove the extra below
   
+  let indexContents = sections.findIndex(node => node.innerHTML === "Contents");
   let indexExtra = sections.findIndex((node) => {
-    if (node.firstChild) {
-      if (
-        [ 'Books', 'Notes', 'References', 'Bibliography', 'Further_reading',
-        'Additional_reading', 'External_links', 'Articles'].includes(node.firstChild.id)
-      ) return true;
-    }
+    if (node.firstChild && [ 'Books', 'Notes', 'References', 'Bibliography', 'Further_reading',
+        'Additional_reading', 'External_links', 'Articles'].includes(node.firstChild.id))
+        return true;
   })
   // console.log('indexExtra', indexExtra, sections[indexExtra]);
   
   sections.splice(indexExtra);
-  sections.splice(0, sectionStarts[1]);
-  sectionStarts = sectionStarts.slice(1, sectionStarts.length - 2).map(el => el - sectionStarts[1]);
+  if (indexContents > -1) {
+    sections.splice( indexContents, sectionStarts[sectionStarts.indexOf(indexContents)+1] );
+    sectionStarts = sectionStarts.slice(1, sectionStarts.length - 2).map(el => el - sectionStarts[1]);
+  }
 
+
+  // console.log(articleName, 'sections', sections);
+  console.log(articleSections);
   // set up articleSections
   articleSections = [];
-  sectionStarts.slice(0, sectionStarts.length-1).map((startIndex, i) => {
+  sectionStarts.map((startIndex, i) => {
     if (i < sectionStarts.length-1) {
       articleSections.push(sections.slice(startIndex, sectionStarts[i + 1]));
     } else {
       articleSections.push(sections.slice(startIndex));
     }
   });
-
+  // articleSections = articleSections.filter(el => el.firstChild.id !== "mw-");
+  console.log(articleSections);
   setUpImages(data);
 }
 
@@ -235,7 +238,8 @@ async function addToSeeAlso() {
   // array of nodes of li elements from see also
   if (articleSections.length > 0) {
     let rel = articleSections[articleSections.length - 1];
-    if (rel[0].textContent = "See also") {
+    console.log(rel[0]);
+    if (rel[0].textContent.includes("See also")) {
       let liArr = Array.from(rel[1].querySelectorAll('li')).filter(el => !el.textContent.includes('portal'));
       liArr.forEach((li) => {
         let el = document.createElement("li");

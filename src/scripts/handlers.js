@@ -43,8 +43,14 @@ async function handleAddReadMeClick(e) {
   e.preventDefault();
   let readme = document.querySelector('.readme');
   let readmeEl = document.createElement('p');
-  readmeEl.innerHTML = `bubblepedia
-  context context context`;
+  readmeEl.innerHTML = `<h3>Bubblepedia</h3>
+  <p>
+    A bubble tea-themed way to browse wikipedia!
+    <ol>
+      <li>Enter a search to find a page you're interested in</li>
+      <li>Click 'see also' to explore related articles!</li>
+    </ol>
+  </p>`;
   readme.appendChild(readmeEl);
   document.querySelector('.fade-bg').setAttribute('show', 'true');
   console.log('content added');
