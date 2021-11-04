@@ -44,7 +44,7 @@ loadArticleContent();
 
 async function loadArticleContent() {
   // set up articleURL and articleHTML
-  articleURL = `http://en.wikipedia.org/w/api.php?action=parse&prop=text&page=${articleName.split(' ').join('_')}&format=json&origin=*`;
+  articleURL = `https://en.wikipedia.org/w/api.php?action=parse&prop=text&page=${articleName.split(' ').join('_')}&format=json&origin=*`;
 
   console.log(`loading ${articleName}, ${articleURL}`);
   
