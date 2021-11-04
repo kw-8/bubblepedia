@@ -166,9 +166,7 @@ async function handleSubmit(e) {
   const searchTerm = document.querySelector('.wiki-input').value.trim();
   try {
     const results = await searchWikipedia(searchTerm);
-  
   } catch (err) {
-  
     alert('Failed to search wikipedia');
   }
 }

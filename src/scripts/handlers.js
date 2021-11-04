@@ -37,7 +37,6 @@ async function handleClearRelatedClick(e) {
 async function addReadMeListener() {
   let readmeBox = document.querySelector('.readme-button');
   readmeBox.addEventListener('click', handleAddReadMeClick.bind(this));
-  console.log('listener added');
 }
 async function handleAddReadMeClick(e) {
   e.preventDefault();
@@ -53,7 +52,6 @@ async function handleAddReadMeClick(e) {
   </p>`;
   readme.appendChild(readmeEl);
   document.querySelector('.fade-bg').setAttribute('show', 'true');
-  console.log('content added');
 }
 
 export { addClearSearchListener, addClearRelatedListener, addReadMeListener, handleClearSearchClick, handleClearRelatedClick, handleAddReadMeClick};
