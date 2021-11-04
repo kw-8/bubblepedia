@@ -46,7 +46,7 @@ async function loadArticleContent() {
   // set up articleURL and articleHTML
   articleURL = `https://en.wikipedia.org/w/api.php?action=parse&prop=text&page=${articleName.split(' ').join('_')}&format=json&origin=*`;
 
-  console.log(`loading ${articleName}, ${articleURL}`);
+
   
   await fetch(articleURL)
     .then(response => response.json())
@@ -67,7 +67,7 @@ async function loadArticleContent() {
 
   // remove see also elements
   while (relatedBox.firstChild) { relatedBox.removeChild(relatedBox.firstChild) };
-  console.log(relatedBox);
+
   document.querySelector('.fade-bg').setAttribute('show', 'false');
 
   // add content to article images
@@ -94,12 +94,12 @@ async function setUpImages(data) {
 
 async function setUpArticleSections(data) {
   let htmlAsText = data.parse.text["*"]; //json obj -> text
-  // console.log(htmlAsText, htmlAsText.includes("Redirect to:"));
+
   if (htmlAsText.includes("Redirect to:")) {
     let newTitle = htmlAsText.match(/title\=\".+\"/)[0];
     newTitle = newTitle.slice(7, newTitle.length - 1);
 
-    console.log('new title match\n', newTitle);
+  
     articleRedirectLi = document.createElement('li');
     articleRedirectLi.setAttribute('title', newTitle);
     articleRedirectLi.textContent = newTitle;
@@ -120,7 +120,7 @@ async function setUpArticleSections(data) {
         'Additional_reading', 'External_links', 'Articles'].includes(node.firstChild.id))
         return true;
   })
-  // console.log('indexExtra', indexExtra, sections[indexExtra]);
+
   
   sections.splice(indexExtra);
   if (indexContents > -1) {
@@ -129,8 +129,8 @@ async function setUpArticleSections(data) {
   }
 
 
-  // console.log(articleName, 'sections', sections);
-  console.log(articleSections);
+
+
   // set up articleSections
   articleSections = [];
   sectionStarts.map((startIndex, i) => {
@@ -141,7 +141,7 @@ async function setUpArticleSections(data) {
     }
   });
   
-  console.log(articleSections);
+
   setUpImages(data);
 }
 
@@ -166,9 +166,9 @@ async function handleSubmit(e) {
   const searchTerm = document.querySelector('.wiki-input').value.trim();
   try {
     const results = await searchWikipedia(searchTerm);
-    console.log(results);
+  
   } catch (err) {
-    console.log(err);
+  
     alert('Failed to search wikipedia');
   }
 }
@@ -238,7 +238,7 @@ async function addToSeeAlso() {
   // array of nodes of li elements from see also
   if (articleSections.length > 0) {
     let rel = articleSections[articleSections.length - 1];
-    console.log(rel[0]);
+  
     if (rel[0].textContent && rel[0].textContent.includes("See also")) {
       let liArr = Array.from(rel[1].querySelectorAll('li')).filter(el => !el.textContent.includes('portal'));
       liArr.forEach((li) => {
