@@ -140,7 +140,7 @@ async function setUpArticleSections(data) {
       articleSections.push(sections.slice(startIndex));
     }
   });
-  // articleSections = articleSections.filter(el => el.firstChild.id !== "mw-");
+  
   console.log(articleSections);
   setUpImages(data);
 }
@@ -239,7 +239,7 @@ async function addToSeeAlso() {
   if (articleSections.length > 0) {
     let rel = articleSections[articleSections.length - 1];
     console.log(rel[0]);
-    if (rel[0].textContent.includes("See also")) {
+    if (rel[0].textContent && rel[0].textContent.includes("See also")) {
       let liArr = Array.from(rel[1].querySelectorAll('li')).filter(el => !el.textContent.includes('portal'));
       liArr.forEach((li) => {
         let el = document.createElement("li");
