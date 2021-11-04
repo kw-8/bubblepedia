@@ -21,3 +21,11 @@ In addition, bubblepedia will have
 ## Technologies, Libraries, APIs
 
 `Wikipedia API` for content, `Canvas` for some basic movement, and `Greensock` for RelatedArticle animation
+
+
+## 
+
+
+
+## Other
+- favicon by iconixar
