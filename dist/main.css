@@ -171,6 +171,9 @@ header h1 {
   padding-left: 2%;
   box-sizing: border-box;
 }
+.main .article-section img {
+  width: min-content;
+}
 .main h2, .main h3, .main h4, .main h5 {
   font-family: "Playfair Display", "Noto Serif JP", "Noto Serif SC";
   font-size: larger;
