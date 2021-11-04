@@ -2,8 +2,7 @@
 
 ## Background
 
-Bubblepedia is a Wikipedia trawler that displays  
-the article body and related articles in a fun way.
+Bubblepedia is a bubble tea themed Wikipedia interface that allows you to explore new articles in a fun way.
 
 
 ## Functionality
