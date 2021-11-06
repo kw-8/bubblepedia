@@ -1,5 +1,8 @@
 # Bubblepedia
 
+[live link](https://kw-8.github.io/bubblepedia/)
+
+
 ## Background
 
 Bubblepedia is a bubble tea themed Wikipedia interface that allows you to explore new articles in a fun way.
@@ -19,7 +22,7 @@ In addition, bubblepedia will have
 
 ## Technologies, Libraries, APIs
 
-`Wikipedia API` for content, `Canvas` for some basic movement, and `Greensock` for RelatedArticle animation
+`Wikipedia API` for content, and `Greensock` for RelatedArticle animation
 
 
 ## 
