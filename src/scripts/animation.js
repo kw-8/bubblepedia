@@ -12,7 +12,7 @@ async function splashRelated() {
     let transformDir = [radius * Math.cos(angle), radius * Math.sin(angle)];
     // gsap.to(`.related-article-list li:nth-child(${n})`, { scale: 3 });
     gsap.to(`.related-article-list li:nth-child(${n})`,
-      { duration: 1, x: transformDir[0], y: transformDir[1], scale: 1.5});
+      { duration: 0.5, x: transformDir[0], y: transformDir[1], scale: 1, delay: 0.2 * i});
   });
 }
 
