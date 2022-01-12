@@ -111,14 +111,17 @@ async function setUpArticleSections(data) {
   articleHTML = new DOMParser().parseFromString(htmlAsText, 'text/html').querySelector('.mw-parser-output');
 
   // remove table of contents, references header, edit section links
-  articleHTML.removeChild(articleHTML.querySelector('#toc'));
-  articleHTML.removeChild(articleHTML.querySelector('#References').parentElement)
+  let toc = articleHTML.querySelector('#toc');
+  if (toc) articleHTML.removeChild(toc);
+
+  let ref_header = articleHTML.querySelector('#References').parentElement
+  if (ref_header) articleHTML.removeChild(ref_header)
   Array.from(articleHTML.querySelectorAll('h2, h3, h4, h5')).forEach(heading =>
     heading.removeChild(heading.querySelector('.mw-editsection'))
   )
 
   // retrieve sections we want to display
-  let sections = Array.from(articleHTML.querySelectorAll('h2, h3, h4, h5, p, .div-col > ul, .mw-parser-output > ul'));
+  let sections = Array.from(articleHTML.querySelectorAll('h2, h3, h4, h5, p, .div-col > ul, .mw-parser-output > ul, .wikitable, dl'));
   articleSections = [[]]
   let i = 0
   sections.forEach(el => {
@@ -131,7 +134,7 @@ async function setUpArticleSections(data) {
   })
 
   // separate see also
-  let seeAlsoIndex = articleSections.findIndex(el => Array.from(el[0].children).some(child => child.innerHTML === 'See also'))
+  let seeAlsoIndex = articleSections.findIndex(el => el[0] && Array.from(el[0].children).some(child => child.innerHTML === 'See also'))
   let seeAlso = articleSections.splice(seeAlsoIndex, 1)[0]
   console.log(seeAlso)
   seeAlsoUl = seeAlso[1]
