@@ -118,7 +118,7 @@ async function setUpArticleSections(data) {
   )
 
   // retrieve sections we want to display
-  let sections = Array.from(articleHTML.querySelectorAll('h2, h3, h4, h5, p, .mw-parser-output > ul'));
+  let sections = Array.from(articleHTML.querySelectorAll('h2, h3, h4, h5, p, .div-col > ul, .mw-parser-output > ul'));
   articleSections = [[]]
   let i = 0
   sections.forEach(el => {
@@ -130,7 +130,6 @@ async function setUpArticleSections(data) {
     }
   })
 
-  console.log(articleSections)
   // separate see also
   let seeAlsoIndex = articleSections.findIndex(el => Array.from(el[0].children).some(child => child.innerHTML === 'See also'))
   let seeAlso = articleSections.splice(seeAlsoIndex, 1)[0]
@@ -272,7 +271,6 @@ async function addToSeeAlso() {
   document.querySelector('.fade-bg').setAttribute('show', 'true');
 
   if (seeAlsoUl) {
-    
     let liArr = Array.from(seeAlsoUl.children).map(el => el.firstChild.innerHTML)
     console.log(liArr)
       liArr.forEach((li) => {
