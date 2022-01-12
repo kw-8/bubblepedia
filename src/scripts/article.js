@@ -40,6 +40,8 @@ var articleHTML;
 var articleSections;
 var articleImages;
 var articleRedirectLi;
+var seeAlsoUl;
+
 loadArticleContent();
 
 async function loadArticleContent() {
@@ -67,7 +69,7 @@ async function loadArticleContent() {
 
   // remove see also elements
   while (relatedBox.firstChild) { relatedBox.removeChild(relatedBox.firstChild) };
-  console.log(relatedBox);
+  // console.log(relatedBox);
   document.querySelector('.fade-bg').setAttribute('show', 'false');
 
   // add content to article images
@@ -88,60 +90,94 @@ async function loadArticleContent() {
   }
 }
 
-async function setUpImages(data) {
+async function setUpImages() {
   articleImages = Array.from(articleHTML.querySelectorAll('img')).filter((imgNode) => imgNode.width > 120 && imgNode.height > 120);
 }
 
 async function setUpArticleSections(data) {
   let htmlAsText = data.parse.text["*"]; //json obj -> text
-  // console.log(htmlAsText, htmlAsText.includes("Redirect to:"));
+  
+  // REDIRECT
   if (htmlAsText.includes("Redirect to:")) {
     let newTitle = htmlAsText.match(/title\=\".+\"/)[0];
     newTitle = newTitle.slice(7, newTitle.length - 1);
 
-    console.log('new title match\n', newTitle);
     articleRedirectLi = document.createElement('li');
     articleRedirectLi.setAttribute('title', newTitle);
     articleRedirectLi.textContent = newTitle;
   }
   
-  articleHTML = new DOMParser().parseFromString(htmlAsText, 'text/html'); //text -> parseable html
+  // article contents -> parseable html
+  articleHTML = new DOMParser().parseFromString(htmlAsText, 'text/html').querySelector('.mw-parser-output');
+
+  // remove table of contents, references header, edit section links
+  articleHTML.removeChild(articleHTML.querySelector('#toc'));
+  articleHTML.removeChild(articleHTML.querySelector('#References').parentElement)
+  Array.from(articleHTML.querySelectorAll('h2, h3, h4, h5')).forEach(heading =>
+    heading.removeChild(heading.querySelector('.mw-editsection'))
+  )
 
   // retrieve sections we want to display
-  let sections = Array.from(articleHTML.querySelectorAll('h2, h3, h4, h5, p, h2 + ul, h3 + ul, h4 + ul'));
-  let sectionStarts = [];
-  sections.forEach((el, i) => {
-    if (el.nodeName === "H2") sectionStarts.push(i)
-  }); // remove the extra below
-  
-  let indexContents = sections.findIndex(node => node.innerHTML === "Contents");
-  let indexExtra = sections.findIndex((node) => {
-    if (node.firstChild && [ 'Books', 'Notes', 'References', 'Bibliography', 'Further_reading',
-        'Additional_reading', 'External_links', 'Articles'].includes(node.firstChild.id))
-        return true;
+  let sections = Array.from(articleHTML.querySelectorAll('h2, h3, h4, h5, p, .mw-parser-output > ul'));
+  articleSections = [[]]
+  let i = 0
+  sections.forEach(el => {
+    if (el.nodeName !== 'H2') {
+      articleSections[i].push(el)
+    } else {
+      i += 1
+      articleSections[i] = [el]
+    }
   })
-  // console.log('indexExtra', indexExtra, sections[indexExtra]);
+
+  console.log(articleSections)
+  // separate see also
+  let seeAlsoIndex = articleSections.findIndex(el => Array.from(el[0].children).some(child => child.innerHTML === 'See also'))
+  let seeAlso = articleSections.splice(seeAlsoIndex, 1)[0]
+  console.log(seeAlso)
+  seeAlsoUl = seeAlso[1]
+  // debugger
   
-  sections.splice(indexExtra);
-  if (indexContents > -1) {
-    sections.splice( indexContents, sectionStarts[sectionStarts.indexOf(indexContents)+1] );
-    sectionStarts = sectionStarts.slice(1, sectionStarts.length - 2).map(el => el - sectionStarts[1]);
-  }
+
+  // SET UP RELATED
+  // let relatedUl = document.querySelector('.related-article-list');
+  // Array.from(seeAlsoUl).forEach(el => relatedUl.appendChild(el))
+
+  // let sectionStarts = [];
+  // sections.forEach((el, i) => {
+  //   if (el.nodeName === "H2") sectionStarts.push(i)
+  // });
+  // console.log(sections)
+  
+  // let indexContents = sections.findIndex(node => node.innerHTML === "Contents");
+  // let indexExtra = sections.findIndex((node) => {
+  //   if (node.firstChild && [ 'Books', 'Notes', 'References', 'Bibliography', 'Further_reading',
+  //       'Additional_reading', 'External_links', 'Articles'].includes(node.firstChild.id))
+  //       return true;
+  // })
+  // // console.log('indexExtra', indexExtra, sections[indexExtra]);
+  
+  // sections.splice(indexExtra);
+  // if (indexContents > -1) {
+  //   sections.splice( indexContents, sectionStarts[sectionStarts.indexOf(indexContents)+1] );
+  //   sectionStarts = sectionStarts.slice(1, sectionStarts.length - 2).map(el => el - sectionStarts[1]);
+  // }
+  // console.log('sectionStarts', sectionStarts)
 
 
   // console.log(articleName, 'sections', sections);
-  console.log(articleSections);
+  // console.log(articleSections);
   // set up articleSections
-  articleSections = [];
-  sectionStarts.map((startIndex, i) => {
-    if (i < sectionStarts.length-1) {
-      articleSections.push(sections.slice(startIndex, sectionStarts[i + 1]));
-    } else {
-      articleSections.push(sections.slice(startIndex));
-    }
-  });
+  // articleSections = [];
+  // sectionStarts.map((startIndex, i) => {
+  //   if (i < sectionStarts.length-1) {
+  //     articleSections.push(sections.slice(startIndex, sectionStarts[i + 1]));
+  //   } else {
+  //     articleSections.push(sections.slice(startIndex));
+  //   }
+  // });
   
-  console.log(articleSections);
+  // console.log(articleSections);
   setUpImages(data);
 }
 
@@ -235,20 +271,36 @@ async function addToSeeAlso() {
 
   document.querySelector('.fade-bg').setAttribute('show', 'true');
 
-  // array of nodes of li elements from see also
-  if (articleSections.length > 0) {
-    let rel = articleSections[articleSections.length - 1];
-    console.log(rel[0]);
-    if (rel[0].textContent && rel[0].textContent.includes("See also")) {
-      let liArr = Array.from(rel[1].querySelectorAll('li')).filter(el => !el.textContent.includes('portal'));
+  if (seeAlsoUl) {
+    
+    let liArr = Array.from(seeAlsoUl.children).map(el => el.firstChild.innerHTML)
+    console.log(liArr)
       liArr.forEach((li) => {
         let el = document.createElement("li");
-        el.innerHTML = `${li.textContent}`;
-        el.setAttribute(`title`, li.textContent);
+        el.innerHTML = `${li}`;
+        el.setAttribute(`title`, li);
 
         relatedUl.appendChild(el);
         relatedUl.appendChild(document.createElement("br"));
       });
-    }
-  } else { relatedUl.appendChild(articleRedirectLi); }
+  } else if (articleRedirectLi) {
+    relatedUl.appendChild(articleRedirectLi);
+  }
+
+  // // array of nodes of li elements from see also
+  // if (articleSections.length > 0) {
+  //   let rel = articleSections[articleSections.length - 1];
+  //   console.log(rel[0]);
+  //   if (rel[0].textContent && rel[0].textContent.includes("See also")) {
+  //     let liArr = Array.from(rel[1].querySelectorAll('li')).filter(el => !el.textContent.includes('portal'));
+  //     liArr.forEach((li) => {
+  //       let el = document.createElement("li");
+  //       el.innerHTML = `${li.textContent}`;
+  //       el.setAttribute(`title`, li.textContent);
+
+  //       relatedUl.appendChild(el);
+  //       relatedUl.appendChild(document.createElement("br"));
+  //     });
+  //   }
+  // } else { relatedUl.appendChild(articleRedirectLi); }
 }
