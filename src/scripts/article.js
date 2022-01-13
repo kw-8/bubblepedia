@@ -108,6 +108,8 @@ async function setUpArticleSections(data) {
   if (data.parse) {
     htmlAsText = data.parse.text["*"]; //json obj -> text
   }
+
+  if (!htmlAsText) articleName = 'Page does not exist'
   
   // REDIRECT
   if (htmlAsText.includes("Redirect to:")) {
@@ -126,8 +128,9 @@ async function setUpArticleSections(data) {
   let toc = articleHTML.querySelector('#toc');
   if (toc) articleHTML.removeChild(toc);
 
-  let ref_header = articleHTML.querySelector('#References').parentElement
-  if (ref_header) articleHTML.removeChild(ref_header)
+  let ref_header = articleHTML.querySelector('#References')
+  if (ref_header) articleHTML.removeChild(ref_header.parentElement)
+
   Array.from(articleHTML.querySelectorAll('h2, h3, h4, h5')).forEach(heading =>
     heading.removeChild(heading.querySelector('.mw-editsection'))
   )
@@ -286,7 +289,9 @@ async function addToSeeAlso() {
   document.querySelector('.fade-bg').setAttribute('show', 'true');
 
   if (seeAlsoUl) {
-    let liArr = Array.from(seeAlsoUl.children).map(el => el.firstChild.innerHTML)
+    let liArr = Array.from(seeAlsoUl.children)
+                      .map(el => el.firstChild.innerHTML)
+                      .filter(el => el !== undefined)
     console.log(liArr)
       liArr.forEach((li) => {
         let el = document.createElement("li");
