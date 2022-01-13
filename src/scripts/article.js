@@ -20,7 +20,13 @@ document.addEventListener('DOMContentLoaded', addReadMeListener);
 async function handleClickResult(e) {
   e.preventDefault();
   
-  articleName = e.target.title;
+  if (e.target.title) articleName = e.target.title;
+  
+  let boxes = document.querySelectorAll('.pictures, .article-section')
+  boxes.forEach(box => box.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  }))
   
   loadArticleContent();
 }
@@ -40,13 +46,15 @@ var articleHTML;
 var articleSections;
 var articleImages;
 var articleRedirectLi;
+var seeAlsoUl;
+
 loadArticleContent();
 
 async function loadArticleContent() {
   // set up articleURL and articleHTML
   articleURL = `https://en.wikipedia.org/w/api.php?action=parse&prop=text&page=${articleName.split(' ').join('_')}&format=json&origin=*`;
 
-
+  // console.log(`loading ${articleName}, ${articleURL}`);
   
   await fetch(articleURL)
     .then(response => response.json())
@@ -56,7 +64,6 @@ async function loadArticleContent() {
 
 
   // find elements to put things in
-  // let htmlBox = document.querySelector('body');
   let relatedBox = document.querySelector('.related-article-list');
   let pictureBox = document.querySelector('.pictures');
   let sectionBox = document.querySelector('.article-section');
@@ -67,7 +74,7 @@ async function loadArticleContent() {
 
   // remove see also elements
   while (relatedBox.firstChild) { relatedBox.removeChild(relatedBox.firstChild) };
-
+  // console.log(relatedBox);
   document.querySelector('.fade-bg').setAttribute('show', 'false');
 
   // add content to article images
@@ -75,72 +82,76 @@ async function loadArticleContent() {
   if (articleImages.length > 0) {
     articleImages.forEach(el => pictureBox.appendChild(el));
   } else {
-    pictureBox.innerHTML = "<img src='./assets/chikadee.jpg'>";
+    // pictureBox.innerHTML = "<img src='./assets/chikadee.jpg'>";
+    let pb_message = document.createElement('p')
+    pb_message.innerHTML = "No Images Found"
+    pictureBox.appendChild(pb_message);
   }
 
   // add content to sectionBox
   while (sectionBox.firstChild) { sectionBox.removeChild(sectionBox.firstChild) };
   if (articleSections.length > 0) {
-    articleSections.slice(0,articleSections.length-1).forEach(arr =>
+    articleSections.forEach(arr =>
       arr.forEach(el => sectionBox.appendChild(el)))
   } else {
     sectionBox.innerHTML = "<p>This page is redirected, check 'see also' for new page</p>";
   }
 }
 
-async function setUpImages(data) {
+async function setUpImages() {
   articleImages = Array.from(articleHTML.querySelectorAll('img')).filter((imgNode) => imgNode.width > 120 && imgNode.height > 120);
 }
 
 async function setUpArticleSections(data) {
-  let htmlAsText = data.parse.text["*"]; //json obj -> text
+  let htmlAsText;
+  if (data.parse) {
+    htmlAsText = data.parse.text["*"]; //json obj -> text
+  }
 
+  if (!htmlAsText) articleName = 'Page does not exist'
+  
+  // REDIRECT
   if (htmlAsText.includes("Redirect to:")) {
     let newTitle = htmlAsText.match(/title\=\".+\"/)[0];
     newTitle = newTitle.slice(7, newTitle.length - 1);
 
-  
     articleRedirectLi = document.createElement('li');
     articleRedirectLi.setAttribute('title', newTitle);
     articleRedirectLi.textContent = newTitle;
   }
   
-  articleHTML = new DOMParser().parseFromString(htmlAsText, 'text/html'); //text -> parseable html
+  // article contents -> parseable html
+  articleHTML = new DOMParser().parseFromString(htmlAsText, 'text/html').querySelector('.mw-parser-output');
+
+  // remove table of contents, references header, edit section links
+  let toc = articleHTML.querySelector('#toc');
+  if (toc) articleHTML.removeChild(toc);
+
+  let ref_header = articleHTML.querySelector('#References')
+  if (ref_header) articleHTML.removeChild(ref_header.parentElement)
+
+  Array.from(articleHTML.querySelectorAll('h2, h3, h4, h5')).forEach(heading =>
+    heading.removeChild(heading.querySelector('.mw-editsection'))
+  )
 
   // retrieve sections we want to display
-  let sections = Array.from(articleHTML.querySelectorAll('h2, h3, h4, h5, p, h2 + ul, h3 + ul, h4 + ul'));
-  let sectionStarts = [];
-  sections.forEach((el, i) => {
-    if (el.nodeName === "H2") sectionStarts.push(i)
-  }); // remove the extra below
-  
-  let indexContents = sections.findIndex(node => node.innerHTML === "Contents");
-  let indexExtra = sections.findIndex((node) => {
-    if (node.firstChild && [ 'Books', 'Notes', 'References', 'Bibliography', 'Further_reading',
-        'Additional_reading', 'External_links', 'Articles'].includes(node.firstChild.id))
-        return true;
+  let sections = Array.from(articleHTML.querySelectorAll('h2, h3, h4, h5, p, .div-col > ul, .mw-parser-output > ul, .wikitable, dl'));
+  articleSections = [[]]
+  let i = 0
+  sections.forEach(el => {
+    if (el.nodeName !== 'H2') {
+      articleSections[i].push(el)
+    } else {
+      i += 1
+      articleSections[i] = [el]
+    }
   })
 
-  
-  sections.splice(indexExtra);
-  if (indexContents > -1) {
-    sections.splice( indexContents, sectionStarts[sectionStarts.indexOf(indexContents)+1] );
-    sectionStarts = sectionStarts.slice(1, sectionStarts.length - 2).map(el => el - sectionStarts[1]);
-  }
-
-
-
-
-  // set up articleSections
-  articleSections = [];
-  sectionStarts.map((startIndex, i) => {
-    if (i < sectionStarts.length-1) {
-      articleSections.push(sections.slice(startIndex, sectionStarts[i + 1]));
-    } else {
-      articleSections.push(sections.slice(startIndex));
-    }
-  });
-  
+  // separate see also
+  let seeAlsoIndex = articleSections.findIndex(el => el[0] && Array.from(el[0].children).some(child => child.innerHTML === 'See also'))
+  let seeAlso = articleSections.splice(seeAlsoIndex, 1)[0]
+  // console.log(seeAlso)
+  seeAlsoUl = seeAlso[1]
 
   setUpImages(data);
 }
@@ -166,6 +177,7 @@ async function handleSubmit(e) {
   const searchTerm = document.querySelector('.wiki-input').value.trim();
   try {
     const results = await searchWikipedia(searchTerm);
+    // console.log(results);
   } catch (err) {
     alert('Failed to search wikipedia');
   }
@@ -233,20 +245,19 @@ async function addToSeeAlso() {
 
   document.querySelector('.fade-bg').setAttribute('show', 'true');
 
-  // array of nodes of li elements from see also
-  if (articleSections.length > 0) {
-    let rel = articleSections[articleSections.length - 1];
-  
-    if (rel[0].textContent && rel[0].textContent.includes("See also")) {
-      let liArr = Array.from(rel[1].querySelectorAll('li')).filter(el => !el.textContent.includes('portal'));
-      liArr.forEach((li) => {
-        let el = document.createElement("li");
-        el.innerHTML = `${li.textContent}`;
-        el.setAttribute(`title`, li.textContent);
+  if (seeAlsoUl) {
+    let liArr = Array.from(seeAlsoUl.children)
+                      .map(el => el.firstChild.innerHTML)
+                      .filter(el => el !== undefined)
+    liArr.forEach((li) => {
+      let el = document.createElement("li");
+      el.innerHTML = `${li}`;
+      el.setAttribute(`title`, li);
 
-        relatedUl.appendChild(el);
-        relatedUl.appendChild(document.createElement("br"));
-      });
-    }
-  } else { relatedUl.appendChild(articleRedirectLi); }
+      relatedUl.appendChild(el);
+      relatedUl.appendChild(document.createElement("br"));
+    });
+  } else if (articleRedirectLi) {
+    relatedUl.appendChild(articleRedirectLi);
+  }
 }
