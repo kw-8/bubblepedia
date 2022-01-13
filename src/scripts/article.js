@@ -153,48 +153,7 @@ async function setUpArticleSections(data) {
   let seeAlso = articleSections.splice(seeAlsoIndex, 1)[0]
   console.log(seeAlso)
   seeAlsoUl = seeAlso[1]
-  // debugger
-  
 
-  // SET UP RELATED
-  // let relatedUl = document.querySelector('.related-article-list');
-  // Array.from(seeAlsoUl).forEach(el => relatedUl.appendChild(el))
-
-  // let sectionStarts = [];
-  // sections.forEach((el, i) => {
-  //   if (el.nodeName === "H2") sectionStarts.push(i)
-  // });
-  // console.log(sections)
-  
-  // let indexContents = sections.findIndex(node => node.innerHTML === "Contents");
-  // let indexExtra = sections.findIndex((node) => {
-  //   if (node.firstChild && [ 'Books', 'Notes', 'References', 'Bibliography', 'Further_reading',
-  //       'Additional_reading', 'External_links', 'Articles'].includes(node.firstChild.id))
-  //       return true;
-  // })
-  // // console.log('indexExtra', indexExtra, sections[indexExtra]);
-  
-  // sections.splice(indexExtra);
-  // if (indexContents > -1) {
-  //   sections.splice( indexContents, sectionStarts[sectionStarts.indexOf(indexContents)+1] );
-  //   sectionStarts = sectionStarts.slice(1, sectionStarts.length - 2).map(el => el - sectionStarts[1]);
-  // }
-  // console.log('sectionStarts', sectionStarts)
-
-
-  // console.log(articleName, 'sections', sections);
-  // console.log(articleSections);
-  // set up articleSections
-  // articleSections = [];
-  // sectionStarts.map((startIndex, i) => {
-  //   if (i < sectionStarts.length-1) {
-  //     articleSections.push(sections.slice(startIndex, sectionStarts[i + 1]));
-  //   } else {
-  //     articleSections.push(sections.slice(startIndex));
-  //   }
-  // });
-  
-  // console.log(articleSections);
   setUpImages(data);
 }
 
@@ -292,33 +251,15 @@ async function addToSeeAlso() {
     let liArr = Array.from(seeAlsoUl.children)
                       .map(el => el.firstChild.innerHTML)
                       .filter(el => el !== undefined)
-    console.log(liArr)
-      liArr.forEach((li) => {
-        let el = document.createElement("li");
-        el.innerHTML = `${li}`;
-        el.setAttribute(`title`, li);
+    liArr.forEach((li) => {
+      let el = document.createElement("li");
+      el.innerHTML = `${li}`;
+      el.setAttribute(`title`, li);
 
-        relatedUl.appendChild(el);
-        relatedUl.appendChild(document.createElement("br"));
-      });
+      relatedUl.appendChild(el);
+      relatedUl.appendChild(document.createElement("br"));
+    });
   } else if (articleRedirectLi) {
     relatedUl.appendChild(articleRedirectLi);
   }
-
-  // // array of nodes of li elements from see also
-  // if (articleSections.length > 0) {
-  //   let rel = articleSections[articleSections.length - 1];
-  //   console.log(rel[0]);
-  //   if (rel[0].textContent && rel[0].textContent.includes("See also")) {
-  //     let liArr = Array.from(rel[1].querySelectorAll('li')).filter(el => !el.textContent.includes('portal'));
-  //     liArr.forEach((li) => {
-  //       let el = document.createElement("li");
-  //       el.innerHTML = `${li.textContent}`;
-  //       el.setAttribute(`title`, li.textContent);
-
-  //       relatedUl.appendChild(el);
-  //       relatedUl.appendChild(document.createElement("br"));
-  //     });
-  //   }
-  // } else { relatedUl.appendChild(articleRedirectLi); }
 }
