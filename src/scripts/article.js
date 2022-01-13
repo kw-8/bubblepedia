@@ -22,6 +22,12 @@ async function handleClickResult(e) {
   
   articleName = e.target.title;
   
+  let boxes = document.querySelectorAll('.pictures, .article-section')
+  boxes.forEach(box => box.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  }))
+  
   loadArticleContent();
 }
 
@@ -138,7 +144,6 @@ async function setUpArticleSections(data) {
       articleSections[i] = [el]
     }
   })
-  console.log(articleSections)
 
   // separate see also
   let seeAlsoIndex = articleSections.findIndex(el => el[0] && Array.from(el[0].children).some(child => child.innerHTML === 'See also'))
