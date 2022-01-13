@@ -284,13 +284,15 @@ footer img {
 ---------------------------- */
 @media screen and (max-width: 700px) {
   header {
+    justify-content: space-around;
     margin-bottom: 10px;
   }
-  header > * {
-    margin-top: 10px;
-  }
   header h1 {
-    max-width: 100%;
+    margin-bottom: 16px;
+  }
+  header > * {
+    min-width: 100%;
+    text-align: center;
   }
 
   .pictures, .article-section {

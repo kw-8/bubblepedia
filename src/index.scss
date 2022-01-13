@@ -300,9 +300,13 @@ footer {
 ---------------------------- */
 @media screen and (max-width: 700px) {
   header {
+    justify-content: space-around;
     margin-bottom: 10px;
-    > * {margin-top: 10px;}
-    h1 {max-width: 100%;}
+    h1 {margin-bottom: 16px;}
+    > * {
+      min-width: 100%;
+      text-align: center;
+    }
   }
   .pictures, .article-section {
     min-width: 100%;
