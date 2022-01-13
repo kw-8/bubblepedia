@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', addReadMeListener);
 async function handleClickResult(e) {
   e.preventDefault();
   
-  articleName = e.target.title;
+  if (e.target.title) articleName = e.target.title;
   
   let boxes = document.querySelectorAll('.pictures, .article-section')
   boxes.forEach(box => box.scrollTo({
