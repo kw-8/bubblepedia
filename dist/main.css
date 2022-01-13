@@ -63,6 +63,9 @@ body {
   padding-left: calc(0.05 * min(100vw, 100vh));
   padding-right: calc(0.05 * min(100vw, 100vh));
 }
+body * {
+  font-size: 14px;
+}
 
 header {
   display: flex;
@@ -88,6 +91,8 @@ header .logo {
 }
 header .wiki-form input, header .wiki-form button {
   padding: 6px;
+  padding-left: 10px;
+  padding-right: 10px;
   box-sizing: border-box;
 }
 header .wiki-form input {
@@ -97,15 +102,17 @@ header .wiki-form input {
   max-width: inherit;
 }
 header .wiki-form input:hover, header .wiki-form input:focus-within {
-  background-color: rgba(255, 255, 255, 0.8);
+  background-color: white;
   border: 2px solid lightgray;
 }
 header .wiki-form ul {
   position: fixed;
   width: min(30vw, 240px);
+  box-sizing: border-box;
+  border: 1px solid rgba(41, 18, 0, 0.2);
 }
 header .wiki-form ul button {
-  background-color: rgba(255, 255, 255, 0.8);
+  background-color: white;
   width: 100%;
 }
 
@@ -157,6 +164,9 @@ footer {
   justify-content: space-between;
   padding-top: 10px;
 }
+footer * {
+  font-family: "Noto Sans";
+}
 footer button {
   border-radius: 1.6em;
   text-align: center;
@@ -186,8 +196,8 @@ footer .related-articles {
   justify-content: center;
 }
 footer .related-articles button {
-  height: 3em;
-  width: 3em;
+  height: 3.6em;
+  width: 3.6em;
 }
 footer img {
   height: 2em;
@@ -218,7 +228,6 @@ footer img {
   justify-content: center;
   text-align: center;
   font-family: "Noto Sans";
-  font-size: 11px;
 }
 
 .readme {
@@ -231,6 +240,7 @@ footer img {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  font-family: "Noto Sans";
 }
 .readme > p {
   width: min(300px, 80vw);
@@ -253,6 +263,9 @@ footer img {
 
 .fade-bg {
   background: rgba(41, 18, 0, 0.6);
+}
+.fade-bg * {
+  color: #290d00;
 }
 
 .fade-bg[show=false] {

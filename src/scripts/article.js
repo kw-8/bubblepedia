@@ -54,7 +54,7 @@ async function loadArticleContent() {
   // set up articleURL and articleHTML
   articleURL = `https://en.wikipedia.org/w/api.php?action=parse&prop=text&page=${articleName.split(' ').join('_')}&format=json&origin=*`;
 
-  console.log(`loading ${articleName}, ${articleURL}`);
+  // console.log(`loading ${articleName}, ${articleURL}`);
   
   await fetch(articleURL)
     .then(response => response.json())
@@ -64,7 +64,6 @@ async function loadArticleContent() {
 
 
   // find elements to put things in
-  // let htmlBox = document.querySelector('body');
   let relatedBox = document.querySelector('.related-article-list');
   let pictureBox = document.querySelector('.pictures');
   let sectionBox = document.querySelector('.article-section');
@@ -151,7 +150,7 @@ async function setUpArticleSections(data) {
   // separate see also
   let seeAlsoIndex = articleSections.findIndex(el => el[0] && Array.from(el[0].children).some(child => child.innerHTML === 'See also'))
   let seeAlso = articleSections.splice(seeAlsoIndex, 1)[0]
-  console.log(seeAlso)
+  // console.log(seeAlso)
   seeAlsoUl = seeAlso[1]
 
   setUpImages(data);
@@ -178,7 +177,7 @@ async function handleSubmit(e) {
   const searchTerm = document.querySelector('.wiki-input').value.trim();
   try {
     const results = await searchWikipedia(searchTerm);
-    console.log(results);
+    // console.log(results);
   } catch (err) {
     console.log(err);
     alert('Failed to search wikipedia');
