@@ -77,13 +77,16 @@ async function loadArticleContent() {
   if (articleImages.length > 0) {
     articleImages.forEach(el => pictureBox.appendChild(el));
   } else {
-    pictureBox.innerHTML = "<img src='./assets/chikadee.jpg'>";
+    // pictureBox.innerHTML = "<img src='./assets/chikadee.jpg'>";
+    let pb_message = document.createElement('p')
+    pb_message.innerHTML = "No Images Found"
+    pictureBox.appendChild(pb_message);
   }
 
   // add content to sectionBox
   while (sectionBox.firstChild) { sectionBox.removeChild(sectionBox.firstChild) };
   if (articleSections.length > 0) {
-    articleSections.slice(0,articleSections.length-1).forEach(arr =>
+    articleSections.forEach(arr =>
       arr.forEach(el => sectionBox.appendChild(el)))
   } else {
     sectionBox.innerHTML = "<p>This page is redirected, check 'see also' for new page</p>";
@@ -95,7 +98,10 @@ async function setUpImages() {
 }
 
 async function setUpArticleSections(data) {
-  let htmlAsText = data.parse.text["*"]; //json obj -> text
+  let htmlAsText;
+  if (data.parse) {
+    htmlAsText = data.parse.text["*"]; //json obj -> text
+  }
   
   // REDIRECT
   if (htmlAsText.includes("Redirect to:")) {
@@ -132,6 +138,7 @@ async function setUpArticleSections(data) {
       articleSections[i] = [el]
     }
   })
+  console.log(articleSections)
 
   // separate see also
   let seeAlsoIndex = articleSections.findIndex(el => el[0] && Array.from(el[0].children).some(child => child.innerHTML === 'See also'))
