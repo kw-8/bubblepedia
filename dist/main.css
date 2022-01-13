@@ -60,122 +60,85 @@ input[type=submit] {
 ---------------------------- */
 body {
   background-image: url("../assets/bubble_tea_fun_glasses.jpg");
-}
-
-header, footer {
-  font-family: "Noto Sans", "Noto Sans JP", "Noto Sans SC";
+  padding-left: calc(0.05 * min(100vw, 100vh));
+  padding-right: calc(0.05 * min(100vw, 100vh));
 }
 
 header {
-  height: fit-content;
-  margin-top: 1vh;
   display: flex;
-  flex-direction: row;
-  align-items: flex-start;
+  flex-flow: row wrap;
+  align-items: center;
   justify-content: space-between;
-}
-@media screen and (min-width: 700px) {
-  header {
-    margin-top: 5vh;
-    height: 8vh;
-  }
-}
-header .logo, header .wiki-form, header h1 {
-  position: relative;
-  margin-left: 2.67vw;
-  margin-right: 2.67vw;
-  margin-bottom: 0%;
-  padding: 3px;
-  width: calc(12vw + 50px);
-  border-radius: 2px;
-  overflow-wrap: break-word;
-}
-header .logo {
-  margin-top: 0.5em;
-  left: 0;
-  font-family: "Comfortaa";
-}
-header .wiki-form {
-  margin-top: 0.5em;
-  right: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-header .wiki-form input, header .wiki-form ul {
-  padding: 3px;
-  width: 100%;
-  background: white;
-}
-header .wiki-form input {
-  outline: 1px solid lightgray;
-  border-radius: inherit;
-}
-header .wiki-form input:hover, header .wiki-form input:focus-within {
-  outline: 1px solid lightslategray;
-}
-header .wiki-form ul {
-  padding-top: 0;
-  padding-bottom: 0;
-  border-radius: 2px;
-  opacity: 90%;
-  overflow: hidden;
-}
-header .wiki-form ul button {
-  width: 100%;
-  border-top: 1px solid lightgray;
+  min-height: 50px;
+  min-width: 100%;
 }
 header h1 {
-  font-family: "Playfair Display", "Noto Serif JP", "Noto Serif SC";
-  font-size: x-large;
-  font-weight: 600;
-  width: 40%;
+  max-width: calc(100% - 330px);
   text-align: center;
+  font-size: 30px;
+}
+header .logo, header .wiki-form {
+  min-width: 160px;
+  max-width: 160px;
+}
+header .logo {
+  font-family: "Dongle", "Noto Sans";
+  font-weight: 300;
+  font-size: 30px;
+}
+header .wiki-form input, header .wiki-form button {
+  padding: 6px;
+  box-sizing: border-box;
+}
+header .wiki-form input {
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 2px;
+  min-width: inherit;
+  max-width: inherit;
+}
+header .wiki-form input:hover, header .wiki-form input:focus-within {
+  background-color: rgba(255, 255, 255, 0.8);
+  border: 2px solid lightgray;
+}
+header .wiki-form ul {
+  position: fixed;
+  width: min(30vw, 240px);
+}
+header .wiki-form ul button {
+  background-color: rgba(255, 255, 255, 0.8);
+  width: 100%;
 }
 
 .main {
   display: flex;
   flex-flow: row wrap;
-  justify-content: space-evenly;
-  padding: 4px;
-}
-@media screen and (max-height: 400px) {
-  .main {
-    height: fit-content;
-  }
+  justify-content: space-between;
 }
 .main .pictures, .main .article-section {
   background-color: white;
-  min-width: 240px;
-  flex-grow: 1;
-  border-radius: 6px;
-  margin: 1.6%;
-}
-@media screen and (min-width: 700px) {
-  .main .pictures, .main .article-section {
-    max-width: 46vw;
-  }
-}
-@media screen and (min-height: 500px) {
-  .main .pictures, .main .article-section {
-    height: 62vh;
-    overflow-y: scroll;
-  }
+  width: 48%;
+  box-sizing: border-box;
+  border-radius: 10px;
+  height: calc(100vh - 150px);
+  overflow: scroll;
 }
 .main .pictures {
-  left: 0;
+  background-color: #291200;
 }
 .main .article-section {
-  right: 0;
-  padding: 0.8%;
-  padding-right: 0.5%;
-  padding-left: 2%;
-  box-sizing: border-box;
+  padding: 10px;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
 }
 .main .article-section img {
   width: min-content;
 }
+.main .article-section table {
+  width: inherit;
+}
 .main h2, .main h3, .main h4, .main h5 {
-  font-family: "Playfair Display", "Noto Serif JP", "Noto Serif SC";
+  font-family: "Noto Serif", "Noto Serif JP", "Noto Serif SC";
   font-size: larger;
   line-height: 1.8em;
 }
@@ -192,135 +155,100 @@ footer {
   display: flex;
   flex-flow: row wrap;
   justify-content: space-between;
-  margin: 2.67%;
-  margin-bottom: 0;
-  margin-top: 2vh;
-  height: 10vh;
+  padding-top: 10px;
 }
-footer a {
+footer button {
+  border-radius: 1.6em;
+  text-align: center;
+  background: white;
+  opacity: 0.8;
+}
+footer p {
+  width: 80px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+footer p a {
   width: fit-content;
 }
-footer * {
-  padding: 6px;
-  flex-flow: row nowrap;
-  margin: 0;
-  display: flex;
-  align-items: center;
-  width: 25vw;
+footer p:last-child {
+  justify-content: right;
+}
+footer p:last-child button {
+  height: 2em;
+  width: 100%;
+  border-radius: 3px;
 }
 footer .related-articles {
   display: inherit;
   justify-content: center;
 }
 footer .related-articles button {
-  width: 3em;
   height: 3em;
-  border-radius: 1.6em;
-  text-align: center;
-  background: white;
-  opacity: 0.8;
-}
-footer .related-articles + p {
-  justify-content: right;
-}
-footer .related-articles + p button {
-  width: fit-content;
-  border-radius: 1em;
-  padding: 0.6em;
-  background: white;
-  opacity: 0.8;
+  width: 3em;
 }
 footer img {
   height: 2em;
   width: auto;
 }
-@media screen and (max-width: 700px) {
-  footer footer .related-articles, footer footer p {
-    display: inherit;
-  }
-  footer footer .related-articles *, footer footer p * {
-    flex-flow: column nowrap;
-    justify-content: space-between;
-  }
-  footer .related-articles + p {
-    margin-left: calc(20vw + 50px);
-  }
-}
 
 .related-article-list {
-  position: sticky;
-  top: 5vh;
-  left: 5vh;
-  width: 90vw;
   filter: url("#goo");
-  display: flex;
-  flex-flow: row wrap;
+  position: relative;
   background: transparent;
+  height: 100vh;
+  width: 100vw;
 }
-.related-article-list * {
+.related-article-list > li {
   position: absolute;
-  top: calc(30vh + 3em);
-  left: calc(50% - 1em);
-  width: 6em;
-  height: 6em;
-  border-radius: 3em;
+  left: calc(50vw - 4em);
+  top: calc(50vh - 4em);
+  width: 8em;
+  height: 8em;
+  border-radius: 45%;
   padding: 0.6em;
   border: 0.3em solid wheat;
   background: wheat;
   box-sizing: border-box;
-  text-align: center;
   overflow: hidden;
-}
-@media screen and (max-width: 700px) {
-  .related-article-list * {
-    left: calc(50vw - 3.6em);
-    width: 4em;
-    height: 4em;
-    border: 0.2em;
-  }
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  font-family: "Noto Sans";
+  font-size: 11px;
 }
 
 .readme {
-  position: sticky;
-  margin-left: calc(50vw - 15em);
-  top: calc(50vh - 7.5em);
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  height: 0;
+  width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 .readme > p {
-  width: 30em;
-  height: 15em;
-  border-radius: 2vw;
-  background: wheat;
-  justify-content: center;
-  text-align: center;
-  overflow-y: scroll;
+  width: min(300px, 80vw);
+  background-color: wheat;
   box-sizing: border-box;
-  padding: 2em;
+  padding: 20px;
+  border-radius: 8px;
 }
 .readme > p li {
   text-align: left;
 }
-@media screen and (max-width: 700px) {
-  .readme {
-    margin-left: 10vw;
-    top: 10vh;
-  }
-  .readme p {
-    width: 80vw;
-    height: 80vh;
-  }
-}
 
 .fade-bg, .frost {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   height: 100vh;
   width: 100vw;
-}
-@media screen and (max-width: 700px) {
-  .fade-bg, .frost {
-    height: 170vh;
-  }
 }
 
 .fade-bg {
@@ -338,6 +266,31 @@ footer img {
 
 /* ----------------------------
 
+  MOBILE STYLING
+
+---------------------------- */
+@media screen and (max-width: 700px) {
+  header {
+    margin-bottom: 10px;
+  }
+  header > * {
+    margin-top: 10px;
+  }
+  header h1 {
+    max-width: 100%;
+  }
+
+  .pictures, .article-section {
+    min-width: 100%;
+    max-height: max(40vh, 300px);
+  }
+
+  .pictures {
+    margin-bottom: 20px;
+  }
+}
+/* ----------------------------
+
   STYLING FOR SCROLLBARS; WEBKIT COMPATIBLE
 
 ---------------------------- */
@@ -348,6 +301,7 @@ body::-webkit-scrollbar {
 }
 
 ::-webkit-scrollbar {
+  height: 6px;
   width: 6px;
   background-color: transparent;
   -webkit-border-radius: 100px;
@@ -370,6 +324,10 @@ body::-webkit-scrollbar {
   background: rgba(0, 0, 0, 0.61);
   /* Some darker color when you click it */
   -webkit-border-radius: 100px;
+}
+
+::-webkit-scrollbar-corner {
+  background-color: none;
 }
 
 svg {
