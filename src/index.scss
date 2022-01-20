@@ -109,6 +109,8 @@ header {
   }
   
   .wiki-form {
+    position: relative;
+    
     input, button {
       padding: 6px;
       padding-left: 10px;
@@ -123,14 +125,14 @@ header {
     }
     input:hover, input:focus-within {
       background-color: $focus-white;
-      border: 2px solid lightgray;
     }
     ul {
-      position: fixed;
-      width: min(30vw, 240px);
+      position: absolute;
+      width: 100%;
       button {
         background-color: $focus-white;
         width: 100%;
+        border-bottom: 1px solid rgb(41, 18, 0, 0.2);
       }
       box-sizing: border-box;
       border: 1px solid rgb(41, 18, 0, 0.2);
@@ -352,7 +354,7 @@ body::-webkit-scrollbar {
   background: rgba(0,0,0,0.61); /* Some darker color when you click it */
   -webkit-border-radius: 100px;
 }
-::-webkit-scrollbar-corner {background-color: none;}
+::-webkit-scrollbar-corner {background-color: transparent;}
 
 
 svg {width:0; height: 0;}
