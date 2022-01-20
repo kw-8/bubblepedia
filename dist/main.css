@@ -89,6 +89,9 @@ header .logo {
   font-weight: 300;
   font-size: 30px;
 }
+header .wiki-form {
+  position: relative;
+}
 header .wiki-form input, header .wiki-form button {
   padding: 6px;
   padding-left: 10px;
@@ -103,17 +106,17 @@ header .wiki-form input {
 }
 header .wiki-form input:hover, header .wiki-form input:focus-within {
   background-color: white;
-  border: 2px solid lightgray;
 }
 header .wiki-form ul {
-  position: fixed;
-  width: min(30vw, 240px);
+  position: absolute;
+  width: 100%;
   box-sizing: border-box;
   border: 1px solid rgba(41, 18, 0, 0.2);
 }
 header .wiki-form ul button {
   background-color: white;
   width: 100%;
+  border-bottom: 1px solid rgba(41, 18, 0, 0.2);
 }
 
 .main {
@@ -342,7 +345,7 @@ body::-webkit-scrollbar {
 }
 
 ::-webkit-scrollbar-corner {
-  background-color: none;
+  background-color: transparent;
 }
 
 svg {
