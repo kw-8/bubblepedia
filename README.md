@@ -1,5 +1,6 @@
 # Bubblepedia
 
+![ss](https://github.com/kw-8/bubblepedia/blob/main/assets/ss_bubblepedia.png)
 [live link](https://kw-8.github.io/bubblepedia/)
 
 
